@@ -145,7 +145,7 @@ public class MainView extends javax.swing.JFrame {
         codigo_jPanelLayout.setHorizontalGroup(
             codigo_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, codigo_jPanelLayout.createSequentialGroup()
-                .addComponent(codigo_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
+                .addComponent(codigo_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
                 .addContainerGap())
         );
         codigo_jPanelLayout.setVerticalGroup(
