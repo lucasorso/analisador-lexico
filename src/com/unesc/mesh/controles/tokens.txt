@@ -1,3 +1,4 @@
+desconhecido -1
 while 1
 void 2
 return 3

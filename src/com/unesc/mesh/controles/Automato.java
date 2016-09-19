@@ -28,14 +28,14 @@ public class Automato {
     private int posicaoAteToken;
     private int numeroInteiro;
     private float numeroFloat;
-    private char[] vetorCharCodigo;
+    private final char[] vetorCharCodigo;
     boolean finalDeArquivo = false;
     private HashMap hashMapTokens;
     private JTable token_jTable;
     private List<Tokens> listTokens = new ArrayList<Tokens>();
-    String expressaoRegularNumero = "^([+-]?(\\d+\\.)\\d+)$";
-//    String expressaoRegularInt = "^[+-]?\\d+$";  
+    String expressaoRegularNumero = "^([+-]?(\\d+\\.)?\\d+)$";
 
+    /*Construtor do automato*/
     public Automato(String codigo, HashMap hashMapTokens, JTable token_jTable) {
         this.vetorCharCodigo = (codigo + "$").toCharArray();
         this.hashMapTokens = hashMapTokens;
@@ -43,21 +43,100 @@ public class Automato {
         int posicaoAtual = 0;
         inicioAutomato(posicaoAtual);
     }
-
+    
+    /*Inicio do automato*/
     private void inicioAutomato(int posicaoAtual) {
         posicaoAteToken = posicaoAtual;
         if (Character.isLetter(vetorCharCodigo[posicaoAtual])) {
-            analisaLetra(posicaoAtual);
+            analisaPalavraReservada(posicaoAtual);
         } else if (Character.isWhitespace(vetorCharCodigo[posicaoAtual])) {
             inicioAutomato(posicaoAtual + 1);
         } else if (Character.isDigit(vetorCharCodigo[posicaoAtual])) {
             analiseDigito(posicaoAtual);
+        } else if (vetorCharCodigo[posicaoAtual] == '_') {
+            analisaIdentificador(posicaoAtual);
         } else if (vetorCharCodigo[posicaoAtual] == '$') {
             populaTabela();
         }
         System.out.println(posicaoAtual);
     }
+    /*
+     ========= ANALISADORES DE TOKEN ==========
+     ==========================================
+     */
 
+    /**/
+    private void analisaIdentificador(int posicaoAtual) {
+        if (vetorCharCodigo[posicaoAtual] == '_' || Character.isLetter(vetorCharCodigo[posicaoAtual])) {
+            analisaIdentificador(posicaoAtual + 1);
+        } else {
+            verificaIdentificador(posicaoAtual);
+        }
+    }
+    
+    /**/
+    private void analisaPalavraReservada(int posicaoAtual) {
+        if (Character.isLetter(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '_') {
+            analisaPalavraReservada(posicaoAtual + 1);
+        } else {
+            verificaToken(posicaoAtual);
+        }
+    }
+    
+    /**/
+    private void analiseDigito(int posicaoAtual) {
+        if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '.') {
+            analiseDigito(posicaoAtual + 1);
+        } else {
+            verificaNumero(posicaoAtual);
+        }
+    }
+
+    /*
+     ========= VERIFICADORES DE TOKEN =========
+     ==========================================
+     */
+    /*Verifica identificador e gera Token*/
+    private void verificaIdentificador(int posicaoAtual){
+        String identificador = getSimboloEncontrado(posicaoAtual);
+        if (identificador.startsWith("_")){
+           geraToken("_identificador", recuperaLinha(posicaoAtual), identificador);
+        }
+        inicioAutomato(posicaoAtual);
+    }
+    
+    /*Verifica numero e gera Token*/
+    private void verificaNumero(int posicaoAtual) {
+        Object objNumber = typeNumber(getSimboloEncontrado(posicaoAtual));
+        numeroFloat = 0;
+        numeroInteiro = 0;
+        if (objNumber != null) {
+            if (objNumber instanceof Float) {
+                numeroFloat = Float.parseFloat(objNumber.toString());
+                geraToken("_numfloat", recuperaLinha(posicaoAtual), numeroFloat);
+            } else if (objNumber instanceof Integer) {
+                numeroInteiro = Integer.parseInt(objNumber.toString());
+                geraToken("_numint", recuperaLinha(posicaoAtual), numeroInteiro);
+            }
+        }
+        inicioAutomato(posicaoAtual);
+    }
+
+    /*Verifica palavra reservada e gera Token*/
+    private void verificaToken(int posicaoAtual) {
+        if (hashMapTokens.containsKey(getSimboloEncontrado(posicaoAtual))) {
+            geraToken(getSimboloEncontrado(posicaoAtual), recuperaLinha(posicaoAtual));
+        } else {
+            gertaTokenDesconhecido(recuperaLinha(posicaoAtual));
+        }
+        inicioAutomato(posicaoAtual);
+    }
+
+    /*
+     ========= FUNÇÕES AUXILIARES =========
+     ======================================
+     */
+    /*Retorna a linha onde esta o token encontrado*/
     private int recuperaLinha(int pos) {
         int linha;
         if (pos == 0) {
@@ -78,52 +157,13 @@ public class Automato {
         return linha;
     }
 
-    private void analisaLetra(int posicaoAtual) {
-        if (Character.isLetter(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '_') {
-            analisaLetra(posicaoAtual + 1);
-        } else {
-            verificaToken(posicaoAtual);
-        }
-    }
-
-    private void analiseDigito(int posicaoAtual) {
-        if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '.') {
-            if (vetorCharCodigo[posicaoAtual - 1] == '.') {
-                analiseDigito(posicaoAtual + 1);
-            }
-        } else {
-            verificaNumero(posicaoAtual);
-        }
-    }
-
-    private void verificaNumero(int posicaoAtual) {
-        Object objNumber = typeNumber(getSimboloEncontrado(posicaoAtual));
-        numeroFloat = 0;
-        numeroInteiro = 0;
-        if (objNumber != null) {
-            if (objNumber instanceof Integer) {
-                numeroFloat = (Float) objNumber;
-            } else if (objNumber instanceof Integer) {
-                numeroInteiro = (Integer) objNumber;
-                
-            }
-        }
-    }
-
-    private void verificaToken(int posicaoAtual ) {
-        if (hashMapTokens.containsKey(getSimboloEncontrado(posicaoAtual))) {
-            geraToken(getSimboloEncontrado(posicaoAtual), recuperaLinha(posicaoAtual));
-        } else {
-            gertaTokenDesconhecido();
-        }
-        inicioAutomato(posicaoAtual);
-    }
-
+    /*Retorna o simbolo formado, entre o último */
     private String getSimboloEncontrado(int posicaoAtual) {
         String mString = new String(vetorCharCodigo);
         return String.valueOf(mString.subSequence(posicaoAteToken, posicaoAtual));
     }
 
+    /*Verifica o tipo do numero, se é Integer ou float*/
     private Number typeNumber(String simboloEncontrado) {
         if (simboloEncontrado.matches(expressaoRegularNumero)) {
             if (simboloEncontrado.contains(".")) {
@@ -135,19 +175,45 @@ public class Automato {
         }
     }
 
+    /*
+     ========= GERADORES DE TOKEN =========
+     ======================================
+     */
+    /*Gera Token com identificador*/
+    private void geraToken (String token, int linha, String tokenGenerico){
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
+        listTokens.add(novoToken);
+    }
+
+    /*Gera Token com numero float*/
+    private void geraToken(String token, int linha, float numFloat) {
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
+        listTokens.add(novoToken);
+    }
+
+    /*Gera Token com numero inteiro*/
+    private void geraToken(String token, int linha, int numInt) {
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
+        listTokens.add(novoToken);
+    }
+
+    /*Gera Token com palavra reservada*/
     private void geraToken(String token, int linha) {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
         listTokens.add(novoToken);
     }
 
-    private void gertaTokenDesconhecido() {
+    /*Se não encontrar nenhum token conhecido*/
+    private void gertaTokenDesconhecido(int linha) {
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get("desconhecido"), "Desconhecido", linha);
+        listTokens.add(novoToken);
 
     }
 
+    /*Popula a tabela*/
     private void populaTabela() {
         DefaultTableModel modeloTable;
         modeloTable = (DefaultTableModel) token_jTable.getModel();
-
         for (int i = 0; i < listTokens.size(); i++) {
             modeloTable.addRow(new Object[]{listTokens.get(i).linha, listTokens.get(i).valor, listTokens.get(i).codigo});
         }

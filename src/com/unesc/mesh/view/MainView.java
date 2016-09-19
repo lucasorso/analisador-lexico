@@ -20,9 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -302,6 +304,9 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_abrir_jButtonActionPerformed
 
     private void analisar_JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analisar_JButtonActionPerformed
+        DefaultTableModel modeloTable;
+        modeloTable = (DefaultTableModel) token_jTable.getModel();
+        modeloTable.getDataVector().removeAllElements();
         analisarCodigo();
     }//GEN-LAST:event_analisar_JButtonActionPerformed
 
@@ -312,6 +317,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_salvar_jButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(this,"Botão de Teste!");
         System.out.println('\u0000');
         System.out.println('\u0008');
         System.out.println("-------");
