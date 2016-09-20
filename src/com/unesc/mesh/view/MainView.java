@@ -318,14 +318,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JOptionPane.showMessageDialog(this,"Botão de Teste!");
-        System.out.println('\u0000');
-        System.out.println('\u0008');
-        System.out.println("-------");
-        System.out.println('\u000E');
-        System.out.println('\u001B');
-        System.out.println("-------");
-        System.out.println('\u007F');
-        System.out.println('\u009F');
+        System.out.println('\u003C');
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

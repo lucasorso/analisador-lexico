@@ -7,15 +7,11 @@ package com.unesc.mesh.controles;
 
 import com.unesc.mesh.view.MainView;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.JTextComponent;
 import javax.swing.text.Utilities;
 
 /**
@@ -42,7 +38,7 @@ public class Automato {
         int posicaoAtual = 0;
         inicioAutomato(posicaoAtual);
     }
-    
+
     /*Inicio do automato*/
     private void inicioAutomato(int posicaoAtual) {
         posicaoAteToken = posicaoAtual;
@@ -54,15 +50,43 @@ public class Automato {
             analiseDigito(posicaoAtual);
         } else if (vetorCharCodigo[posicaoAtual] == '_') {
             analisaIdentificador(posicaoAtual);
+        } else if (vetorCharCodigo[posicaoAtual] == '>' || vetorCharCodigo[posicaoAtual] == '<' || vetorCharCodigo[posicaoAtual] == '='
+                || vetorCharCodigo[posicaoAtual] == '+' || vetorCharCodigo[posicaoAtual] == '-' || vetorCharCodigo[posicaoAtual] == '*'
+                || vetorCharCodigo[posicaoAtual] == '/' || vetorCharCodigo[posicaoAtual] == '.' || vetorCharCodigo[posicaoAtual] == ','
+                || vetorCharCodigo[posicaoAtual] == ';' || vetorCharCodigo[posicaoAtual] == ':' || vetorCharCodigo[posicaoAtual] == '!'
+                || vetorCharCodigo[posicaoAtual] == '{' || vetorCharCodigo[posicaoAtual] == '}' || vetorCharCodigo[posicaoAtual] == '['
+                || vetorCharCodigo[posicaoAtual] == ']' || vetorCharCodigo[posicaoAtual] == '|' || vetorCharCodigo[posicaoAtual] == '#'
+                || vetorCharCodigo[posicaoAtual] == '§' || vetorCharCodigo[posicaoAtual] == '¬' || vetorCharCodigo[posicaoAtual] == '&') {
+            analisaCaracter(posicaoAtual);
         } else if (vetorCharCodigo[posicaoAtual] == '$') {
+            geraToken(String.valueOf('$'), recuperaLinha(posicaoAtual));
             populaTabela();
-        }
+        } 
         System.out.println(posicaoAtual);
     }
+
     /*
      ========= ANALISADORES DE TOKEN ==========
      ==========================================
      */
+    /**/
+    private void analisaCaracter(int posicaoAtual) {
+        if (vetorCharCodigo[posicaoAtual] == '>' || vetorCharCodigo[posicaoAtual] == '<' || vetorCharCodigo[posicaoAtual] == '='
+                || vetorCharCodigo[posicaoAtual] == '+' || vetorCharCodigo[posicaoAtual] == '-' || vetorCharCodigo[posicaoAtual] == '*'
+                || vetorCharCodigo[posicaoAtual] == '/' || vetorCharCodigo[posicaoAtual] == '.' || vetorCharCodigo[posicaoAtual] == ','
+                || vetorCharCodigo[posicaoAtual] == ';' || vetorCharCodigo[posicaoAtual] == ':' || vetorCharCodigo[posicaoAtual] == '!'
+                || vetorCharCodigo[posicaoAtual] == '{' || vetorCharCodigo[posicaoAtual] == '}' || vetorCharCodigo[posicaoAtual] == '['
+                || vetorCharCodigo[posicaoAtual] == ']' || vetorCharCodigo[posicaoAtual] == '|' || vetorCharCodigo[posicaoAtual] == '#'
+                || vetorCharCodigo[posicaoAtual] == '§' || vetorCharCodigo[posicaoAtual] == '¬' || vetorCharCodigo[posicaoAtual] == '&') {
+            analisaCaracter(posicaoAtual +1);
+        } else if (vetorCharCodigo[posicaoAtual -1] == vetorCharCodigo[posicaoAtual]){
+            analisaCaracter(posicaoAtual +1);
+        } else if (vetorCharCodigo[posicaoAtual -1] == vetorCharCodigo[posicaoAtual]){
+            verificaToken(posicaoAtual);
+        } else{
+            gertaTokenDesconhecido(posicaoAtual);
+        }
+    }
 
     /**/
     private void analisaIdentificador(int posicaoAtual) {
@@ -72,7 +96,7 @@ public class Automato {
             verificaIdentificador(posicaoAtual);
         }
     }
-    
+
     /**/
     private void analisaPalavraReservada(int posicaoAtual) {
         if (Character.isLetter(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '_') {
@@ -81,7 +105,7 @@ public class Automato {
             verificaToken(posicaoAtual);
         }
     }
-    
+
     /**/
     private void analiseDigito(int posicaoAtual) {
         if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '.') {
@@ -95,15 +119,15 @@ public class Automato {
      ========= VERIFICADORES DE TOKEN =========
      ==========================================
      */
-    /*Verifica identificador e gera Token*/
-    private void verificaIdentificador(int posicaoAtual){
+ /*Verifica identificador e gera Token*/
+    private void verificaIdentificador(int posicaoAtual) {
         String identificador = getSimboloEncontrado(posicaoAtual);
-        if (identificador.startsWith("_")){
-           geraToken("_identificador", recuperaLinha(posicaoAtual), identificador);
+        if (identificador.startsWith("_")) {
+            geraToken("_identificador", recuperaLinha(posicaoAtual), identificador);
         }
         inicioAutomato(posicaoAtual);
     }
-    
+
     /*Verifica numero e gera Token*/
     private void verificaNumero(int posicaoAtual) {
         Object objNumber = typeNumber(getSimboloEncontrado(posicaoAtual));
@@ -135,7 +159,7 @@ public class Automato {
      ========= FUNÇÕES AUXILIARES =========
      ======================================
      */
-    /*Retorna a linha onde esta o token encontrado*/
+ /*Retorna a linha onde esta o token encontrado*/
     private int recuperaLinha(int pos) {
         int linha;
         if (pos == 0) {
@@ -179,20 +203,20 @@ public class Automato {
      ======================================
      */
     /*Gera Token com identificador*/
-    private void geraToken (String token, int linha, String tokenGenerico){
+    private void geraToken(String token, int linha, String tokenGenerico) {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
         listTokens.add(novoToken);
     }
 
     /*Gera Token com numero float*/
     private void geraToken(String token, int linha, float numFloat) {
-        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), String.valueOf(numFloat), linha);
         listTokens.add(novoToken);
     }
 
     /*Gera Token com numero inteiro*/
     private void geraToken(String token, int linha, int numInt) {
-        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), String.valueOf(numInt), linha);
         listTokens.add(novoToken);
     }
 
