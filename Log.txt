@@ -318,3 +318,38 @@ Sun Sep 25 12:32:05 BRT 2016 : Comentário de Bloco: nullOla
 este é um comentario de 
 Bloco
 int Linhas: 4
+Sun Sep 25 12:58:09 BRT 2016 : Nenhum arquivo selecionado
+Sun Sep 25 13:06:01 BRT 2016 : Comentário de Bloco: null ese é um comentário de 
+        bloco Linhas: 16
+Sun Sep 25 13:07:59 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:10:07 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:10:28 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Sun Sep 25 13:11:59 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:12:00 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Sun Sep 25 13:13:42 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:14:05 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 13:15:05 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 13:15:29 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 13:15:32 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 13:15:36 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 13:15:48 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:19:01 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:21:29 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:21:46 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:21:51 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Sun Sep 25 13:22:31 BRT 2016 : Comentário: null  comentario Linha: 7
+Sun Sep 25 13:22:35 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16

@@ -84,8 +84,9 @@ public class Automato {
                 analisaLiteral(posicaoAtual +1);
             } else if (vetorCharCodigo[posicaoAtual] == '\"'){
                 analisaString(posicaoAtual +1);
-            }
-            if (vetorCharCodigo[posicaoAtual] == '$') {
+            } else if (vetorCharCodigo[posicaoAtual] == '$' && (posicaoAtual < vetorCharCodigo.length -1)){
+                inicioAutomato(posicaoAtual +1);
+            } else if (vetorCharCodigo[posicaoAtual] == '$') {
                 geraToken(String.valueOf('$'), recuperaLinha(posicaoAtual));
                 populaTabela();
             }
@@ -200,7 +201,8 @@ public class Automato {
     
     /* Verifica String e gera Token */
     private void verificaString(int posicaoAtual){
-        String mString = String.valueOf(vetorCharCodigo, posicaoAteToken, posicaoAtual +1);
+        String auxString = String.valueOf(vetorCharCodigo);
+        String mString = auxString.substring(posicaoAteToken, posicaoAtual +1);
         if (mString.startsWith("\"") && mString.endsWith("\"")){
             geraToken("_string", recuperaLinha(posicaoAtual), mString.replaceAll("\"", ""));
         } else {
@@ -216,7 +218,8 @@ public class Automato {
     
     /* Verifica Literal e gera Token */
     private void verificaLiteral(int posicaoAtual){
-        String mLiteral = String.valueOf(vetorCharCodigo, posicaoAteToken, posicaoAtual +1);
+        String auxLiteral = String.valueOf(vetorCharCodigo);
+        String mLiteral = auxLiteral.substring(posicaoAteToken, posicaoAtual +1);
         if (mLiteral.startsWith("¬") && mLiteral.endsWith("¬")){
             geraToken("_literal", recuperaLinha(posicaoAtual), mLiteral.replaceAll("¬", ""));
         } else {

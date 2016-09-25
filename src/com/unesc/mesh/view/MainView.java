@@ -430,7 +430,7 @@ public class MainView extends javax.swing.JFrame {
 //        modeloTable = (DefaultTableModel) token_jTable.getModel();
         this.hashMapTokens = new HashMap<String, Integer>();
 
-        File file = new File(getClass().getResource("../controles/tokens.txt").getFile());
+        File file = new File(getClass().getResource("../arquivos/tokens.txt").getFile());
         FileReader fileReader = new FileReader(file.getAbsoluteFile());
         BufferedReader bufferedReader = new LineNumberReader(fileReader);
         while (bufferedReader.ready()) {
