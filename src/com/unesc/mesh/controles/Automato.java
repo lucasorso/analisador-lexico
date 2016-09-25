@@ -23,11 +23,12 @@ public class Automato {
     private int posicaoAteToken;
     private int numeroInteiro;
     private float numeroFloat;
+    private String comentario;
     private final char[] vetorCharCodigo;
     boolean finalDeArquivo = false;
-    private HashMap hashMapTokens;
-    private JTable token_jTable;
-    private List<Tokens> listTokens = new ArrayList<Tokens>();
+    private final HashMap hashMapTokens;
+    private final JTable token_jTable;
+    private final List<Tokens> listTokens = new ArrayList<Tokens>();
     String expressaoRegularNumero = "^([+-]?(\\d+\\.)?\\d+)$";
 
     /*Construtor do automato*/
@@ -39,65 +40,117 @@ public class Automato {
         inicioAutomato(posicaoAtual);
     }
 
-    /*Inicio do automato*/
+    /* Inicio do automato */
     private void inicioAutomato(int posicaoAtual) {
+        System.gc();
         posicaoAteToken = posicaoAtual;
         if (Character.isLetter(vetorCharCodigo[posicaoAtual])) {
-            analisaPalavraReservada(posicaoAtual);
-        } else if (Character.isWhitespace(vetorCharCodigo[posicaoAtual])) {
-            inicioAutomato(posicaoAtual + 1);
+            analisaPalavraReservada(posicaoAtual + 1);
         } else if (Character.isDigit(vetorCharCodigo[posicaoAtual])) {
-            analiseDigito(posicaoAtual);
+            analisaDigito(posicaoAtual + 1);
         } else if (vetorCharCodigo[posicaoAtual] == '_') {
-            analisaIdentificador(posicaoAtual);
+            analisaIdentificador(posicaoAtual + 1);
         } else if (vetorCharCodigo[posicaoAtual] == '>' || vetorCharCodigo[posicaoAtual] == '<' || vetorCharCodigo[posicaoAtual] == '='
                 || vetorCharCodigo[posicaoAtual] == '+' || vetorCharCodigo[posicaoAtual] == '-' || vetorCharCodigo[posicaoAtual] == '*'
                 || vetorCharCodigo[posicaoAtual] == '/' || vetorCharCodigo[posicaoAtual] == '.' || vetorCharCodigo[posicaoAtual] == ','
                 || vetorCharCodigo[posicaoAtual] == ';' || vetorCharCodigo[posicaoAtual] == ':' || vetorCharCodigo[posicaoAtual] == '!'
                 || vetorCharCodigo[posicaoAtual] == '{' || vetorCharCodigo[posicaoAtual] == '}' || vetorCharCodigo[posicaoAtual] == '['
-                || vetorCharCodigo[posicaoAtual] == ']' || vetorCharCodigo[posicaoAtual] == '|' || vetorCharCodigo[posicaoAtual] == '#'
-                || vetorCharCodigo[posicaoAtual] == '§' || vetorCharCodigo[posicaoAtual] == '¬' || vetorCharCodigo[posicaoAtual] == '&') {
-            analisaCaracter(posicaoAtual);
-        } else if (vetorCharCodigo[posicaoAtual] == '$') {
+                || vetorCharCodigo[posicaoAtual] == ']' || vetorCharCodigo[posicaoAtual] == '|' || vetorCharCodigo[posicaoAtual] == '&'
+                || vetorCharCodigo[posicaoAtual] == '(' || vetorCharCodigo[posicaoAtual] == ')') {
+            analisaCaracter(posicaoAtual + 1);
+        } else if (vetorCharCodigo[posicaoAtual] == '§') {
+            while (vetorCharCodigo[posicaoAtual] != '\n') {
+                if (vetorCharCodigo[posicaoAtual] == '$') {
+                    inicioAutomato(posicaoAtual);
+                    Log.gravar("Comentário: " + comentario.replace("§", " ").trim() + " Linha: " + recuperaLinha(posicaoAtual), Log.LOG);
+                }
+                comentario += vetorCharCodigo[posicaoAtual];
+                posicaoAtual++;
+            }
+            Log.gravar("Comentário: " + comentario.replace("§", " ").trim() + " Linha: " + recuperaLinha(posicaoAtual), Log.LOG);
+            inicioAutomato(posicaoAtual);
+        } else if (Character.isWhitespace(vetorCharCodigo[posicaoAtual])) {
+            inicioAutomato(posicaoAtual + 1);
+        } else if (vetorCharCodigo[posicaoAtual] == '\'') {
+            analisaChar(posicaoAtual + 1);
+        } else if (vetorCharCodigo[posicaoAtual] == '#') {
+            analisaComentarioBloco(posicaoAtual + 1);
+        } else if (vetorCharCodigo[posicaoAtual] == '¬'){
+            analisaLiteral(posicaoAtual +1);
+        } else if (vetorCharCodigo[posicaoAtual] == '\"'){
+            analisaString(posicaoAtual);
+        }
+        if (vetorCharCodigo[posicaoAtual] == '$') {
             geraToken(String.valueOf('$'), recuperaLinha(posicaoAtual));
             populaTabela();
-        } 
+        }
         System.out.println(posicaoAtual);
     }
+    
+    /*Analisa String*/
+    private void analisaString(int posicaoAtual){
+        
+    }
+    
+    /*Analisa Literal*/
+    private void analisaLiteral(int posicaoAtual){
+        if (vetorCharCodigo[posicaoAtual] == '¬') {
+            verificaLiteral(posicaoAtual);
+        } else if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || Character.isLetter(vetorCharCodigo[posicaoAtual]) && vetorCharCodigo[posicaoAtual] != '$'){
+            analisaLiteral(posicaoAtual +1);
+        } else if (vetorCharCodigo[posicaoAtual] == '$'){
+            verificaLiteral(posicaoAtual);
+        }
+    }
+    
+    /*Analisa comentário de bloco*/
+    private void analisaComentarioBloco(int posicaoAtual) {
+        while (vetorCharCodigo[posicaoAtual] != '#') {
+            comentario += vetorCharCodigo[posicaoAtual];
+            posicaoAtual++;
+        }
+        if (vetorCharCodigo[posicaoAtual] == '#'){
+            inicioAutomato(posicaoAtual +1);
+        } else if (vetorCharCodigo[posicaoAtual] == '$'){
+            geraTokenDesconhecido(posicaoAtual);
+            inicioAutomato(posicaoAtual);
+        }
+        Log.gravar("Comentário de Bloco: " + comentario.replace("#", " ").trim() + " Linhas: " + recuperaLinha(posicaoAtual), Log.LOG);
+    }
 
-    /*
-     ========= ANALISADORES DE TOKEN ==========
-     ==========================================
-     */
-    /**/
-    private void analisaCaracter(int posicaoAtual) {
-        if (vetorCharCodigo[posicaoAtual] == '>' || vetorCharCodigo[posicaoAtual] == '<' || vetorCharCodigo[posicaoAtual] == '='
-                || vetorCharCodigo[posicaoAtual] == '+' || vetorCharCodigo[posicaoAtual] == '-' || vetorCharCodigo[posicaoAtual] == '*'
-                || vetorCharCodigo[posicaoAtual] == '/' || vetorCharCodigo[posicaoAtual] == '.' || vetorCharCodigo[posicaoAtual] == ','
-                || vetorCharCodigo[posicaoAtual] == ';' || vetorCharCodigo[posicaoAtual] == ':' || vetorCharCodigo[posicaoAtual] == '!'
-                || vetorCharCodigo[posicaoAtual] == '{' || vetorCharCodigo[posicaoAtual] == '}' || vetorCharCodigo[posicaoAtual] == '['
-                || vetorCharCodigo[posicaoAtual] == ']' || vetorCharCodigo[posicaoAtual] == '|' || vetorCharCodigo[posicaoAtual] == '#'
-                || vetorCharCodigo[posicaoAtual] == '§' || vetorCharCodigo[posicaoAtual] == '¬' || vetorCharCodigo[posicaoAtual] == '&') {
-            analisaCaracter(posicaoAtual +1);
-        } else if (vetorCharCodigo[posicaoAtual -1] == vetorCharCodigo[posicaoAtual]){
-            analisaCaracter(posicaoAtual +1);
-        } else if (vetorCharCodigo[posicaoAtual -1] == vetorCharCodigo[posicaoAtual]){
-            verificaToken(posicaoAtual);
-        } else{
-            gertaTokenDesconhecido(posicaoAtual);
+    /*Analisa o char*/
+    private void analisaChar(int posicaoAtual) {
+        if (vetorCharCodigo[posicaoAtual] == '\'') {
+            verificarChar(posicaoAtual);
+        } else if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || Character.isLetter(vetorCharCodigo[posicaoAtual]) && vetorCharCodigo[posicaoAtual] != '$') {
+            analisaChar(posicaoAtual + 1);
         }
     }
 
-    /**/
+    /* Analisa caracteres */
+    private void analisaCaracter(int posicaoAtual) {
+        if (Character.isDigit(vetorCharCodigo[posicaoAtual])) {
+            analisaDigito(posicaoAtual + 1);
+        }
+        if (vetorCharCodigo[posicaoAtual] == '=' || vetorCharCodigo[posicaoAtual] == '+'
+                || vetorCharCodigo[posicaoAtual] == '-' || vetorCharCodigo[posicaoAtual] == '|'
+                || vetorCharCodigo[posicaoAtual] == '&' || vetorCharCodigo[posicaoAtual] == '.') {
+            analisaCaracter(posicaoAtual + 1);
+        } else {
+            verificaToken(posicaoAtual);
+        }
+    }
+
+    /* Analisa identificadores */
     private void analisaIdentificador(int posicaoAtual) {
-        if (vetorCharCodigo[posicaoAtual] == '_' || Character.isLetter(vetorCharCodigo[posicaoAtual])) {
+        if (Character.isLetter(vetorCharCodigo[posicaoAtual])) {
             analisaIdentificador(posicaoAtual + 1);
         } else {
             verificaIdentificador(posicaoAtual);
         }
     }
 
-    /**/
+    /* Analisa Palavras reservadas */
     private void analisaPalavraReservada(int posicaoAtual) {
         if (Character.isLetter(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '_') {
             analisaPalavraReservada(posicaoAtual + 1);
@@ -106,10 +159,10 @@ public class Automato {
         }
     }
 
-    /**/
-    private void analiseDigito(int posicaoAtual) {
+    /* Analisa digitos */
+    private void analisaDigito(int posicaoAtual) {
         if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || vetorCharCodigo[posicaoAtual] == '.') {
-            analiseDigito(posicaoAtual + 1);
+            analisaDigito(posicaoAtual + 1);
         } else {
             verificaNumero(posicaoAtual);
         }
@@ -119,11 +172,36 @@ public class Automato {
      ========= VERIFICADORES DE TOKEN =========
      ==========================================
      */
- /*Verifica identificador e gera Token*/
+    
+    /*Verifica char e gera Token*/
+    private void verificaLiteral(int posicaoAtual){
+        String mLiteral = String.valueOf(vetorCharCodigo, posicaoAteToken, posicaoAtual +1);
+        if (mLiteral.startsWith("¬") && mLiteral.endsWith("¬")){
+            geraToken("_literal", recuperaLinha(posicaoAtual), mLiteral.replaceAll("¬", ""));
+        } else {
+            geraTokenDesconhecido(posicaoAtual);
+        }
+        inicioAutomato(posicaoAtual + 1);
+    }
+    
+    /*Verifica char e gera Token*/
+    private void verificarChar(int posicaoAtual) {
+        String mChar = getSimboloEncontrado(posicaoAtual).replace('\'', ' ').trim();
+        if (mChar.length() == 1) {
+            geraToken("_char", recuperaLinha(posicaoAtual), mChar);
+        } else {
+            geraTokenDesconhecido(posicaoAtual);
+        }
+        inicioAutomato(posicaoAtual + 1);
+    }
+
+    /*Verifica identificador e gera Token*/
     private void verificaIdentificador(int posicaoAtual) {
         String identificador = getSimboloEncontrado(posicaoAtual);
         if (identificador.startsWith("_")) {
             geraToken("_identificador", recuperaLinha(posicaoAtual), identificador);
+        } else {
+            geraTokenDesconhecido(posicaoAtual);
         }
         inicioAutomato(posicaoAtual);
     }
@@ -150,7 +228,7 @@ public class Automato {
         if (hashMapTokens.containsKey(getSimboloEncontrado(posicaoAtual))) {
             geraToken(getSimboloEncontrado(posicaoAtual), recuperaLinha(posicaoAtual));
         } else {
-            gertaTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
         }
         inicioAutomato(posicaoAtual);
     }
@@ -159,7 +237,8 @@ public class Automato {
      ========= FUNÇÕES AUXILIARES =========
      ======================================
      */
- /*Retorna a linha onde esta o token encontrado*/
+    
+    /*Retorna a linha onde esta o token encontrado*/
     private int recuperaLinha(int pos) {
         int linha;
         if (pos == 0) {
@@ -183,7 +262,10 @@ public class Automato {
     /*Retorna o simbolo formado, entre o último */
     private String getSimboloEncontrado(int posicaoAtual) {
         String mString = new String(vetorCharCodigo);
-        return String.valueOf(mString.subSequence(posicaoAteToken, posicaoAtual));
+        if (mString.startsWith("§")) {
+            return String.valueOf(mString.substring(posicaoAteToken, posicaoAtual));
+        }
+        return String.valueOf(mString.substring(posicaoAteToken, posicaoAtual));
     }
 
     /*Verifica o tipo do numero, se é Integer ou float*/
@@ -202,9 +284,10 @@ public class Automato {
      ========= GERADORES DE TOKEN =========
      ======================================
      */
+    
     /*Gera Token com identificador*/
     private void geraToken(String token, int linha, String tokenGenerico) {
-        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
+        Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), tokenGenerico, linha);
         listTokens.add(novoToken);
     }
 
@@ -220,25 +303,30 @@ public class Automato {
         listTokens.add(novoToken);
     }
 
-    /*Gera Token com palavra reservada*/
+    /*
+     * @Param Gera Token com palavra reservada
+     Gera Token com palavra reservada*/
     private void geraToken(String token, int linha) {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get(token), token, linha);
         listTokens.add(novoToken);
     }
 
-    /*Se não encontrar nenhum token conhecido*/
-    private void gertaTokenDesconhecido(int linha) {
+    /*
+     * @Param Gera Token Desconhecido
+     Se não encontrar nenhum token conhecido*/
+    private void geraTokenDesconhecido(int linha) {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get("desconhecido"), "Desconhecido", linha);
         listTokens.add(novoToken);
-
     }
 
-    /*Popula a tabela*/
+    /*
+     * @Popula Tabela
+     Popula a tabela*/
     private void populaTabela() {
         DefaultTableModel modeloTable;
         modeloTable = (DefaultTableModel) token_jTable.getModel();
-        for (int i = 0; i < listTokens.size(); i++) {
-            modeloTable.addRow(new Object[]{listTokens.get(i).linha, listTokens.get(i).valor, listTokens.get(i).codigo});
-        }
+        listTokens.stream().forEach((listToken) -> {
+            modeloTable.addRow(new Object[]{listToken.linha, listToken.valor, listToken.codigo});
+        });
     }
 }

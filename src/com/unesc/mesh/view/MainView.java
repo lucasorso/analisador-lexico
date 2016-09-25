@@ -138,6 +138,7 @@ public class MainView extends javax.swing.JFrame {
 
         codigo_jTextArea.setColumns(20);
         codigo_jTextArea.setRows(5);
+        codigo_jTextArea.setText("int ['1']\n\n#Ola \neste é um comentario de \nBloco#\n\nfor");
         codigo_jScrollPane.setViewportView(codigo_jTextArea);
 
         javax.swing.GroupLayout codigo_jPanelLayout = new javax.swing.GroupLayout(codigo_jPanel);
@@ -227,6 +228,11 @@ public class MainView extends javax.swing.JFrame {
         arquivo_jMenu.add(salvar_jMenuItem);
 
         sair_jMenuItem.setText("Sair");
+        sair_jMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sair_jMenuItemActionPerformed(evt);
+            }
+        });
         arquivo_jMenu.add(sair_jMenuItem);
 
         jMenuBar.add(arquivo_jMenu);
@@ -290,7 +296,8 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_salvar_jMenuItemActionPerformed
 
     private void desenvolvedores_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desenvolvedores_jMenuItemActionPerformed
-        // TODO add your handling code here:
+        DevelopersView devShow =  new DevelopersView();
+        devShow.setVisible(true);
     }//GEN-LAST:event_desenvolvedores_jMenuItemActionPerformed
 
     private void abrir_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_jButtonActionPerformed
@@ -320,6 +327,10 @@ public class MainView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this,"Botão de Teste!");
         System.out.println('\u003C');
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void sair_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_jMenuItemActionPerformed
+        System.exit(NORMAL);
+    }//GEN-LAST:event_sair_jMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
