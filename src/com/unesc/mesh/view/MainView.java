@@ -138,7 +138,7 @@ public class MainView extends javax.swing.JFrame {
 
         codigo_jTextArea.setColumns(20);
         codigo_jTextArea.setRows(5);
-        codigo_jTextArea.setText("int ['1']\n\n#Ola \neste é um comentario de \nBloco#\n\nfor");
+        codigo_jTextArea.setText("#Ola \neste é um comentario de \nBloco");
         codigo_jScrollPane.setViewportView(codigo_jTextArea);
 
         javax.swing.GroupLayout codigo_jPanelLayout = new javax.swing.GroupLayout(codigo_jPanel);

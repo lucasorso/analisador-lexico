@@ -222,7 +222,7 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="int [&apos;1&apos;]&#xa;&#xa;#Ola &#xa;este &#xe9; um comentario de &#xa;Bloco#&#xa;&#xa;for"/>
+                <Property name="text" type="java.lang.String" value="#Ola &#xa;este &#xe9; um comentario de &#xa;Bloco"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

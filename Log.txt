@@ -272,3 +272,49 @@ Bloco Linhas: 5
 Sat Sep 24 23:09:22 BRT 2016 : Comentário de Bloco: nullOla 
 este é um comentario de 
 Bloco Linhas: 4
+Sun Sep 25 10:23:19 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 5
+Sun Sep 25 10:23:47 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 5
+Sun Sep 25 11:34:39 BRT 2016 : 12312312312312312312312313123123123123123
+Sun Sep 25 11:36:12 BRT 2016 : 68678678678876867868678678678678
+Sun Sep 25 11:37:53 BRT 2016 : For input string: "789078789078097809780789078907890"
+789078789078097809780789078907890
+Sun Sep 25 11:47:26 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 11:48:31 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 11:48:45 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 11:48:50 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 11:48:57 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 4
+Sun Sep 25 11:49:00 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 5
+Sun Sep 25 11:57:56 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco
+
+int Linhas: 5
+Sun Sep 25 11:58:22 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 4
+Sun Sep 25 12:31:57 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 12:31:59 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Sun Sep 25 12:32:05 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco
+int Linhas: 4
