@@ -104,11 +104,11 @@ public class Automato {
     
     /* Analisa String */
     private void analisaString(int posicaoAtual){
-        if (vetorCharCodigo[posicaoAtual] == '\"' || Character.isWhitespace(vetorCharCodigo[posicaoAtual])) {
+        if (vetorCharCodigo[posicaoAtual] == '\"') {
             verificaString(posicaoAtual);
         } 
-        if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || Character.isLetter(vetorCharCodigo[posicaoAtual])  ||
-                vetorCharCodigo[posicaoAtual] == '_' && vetorCharCodigo[posicaoAtual] != '$'){
+        if (Character.isDigit(vetorCharCodigo[posicaoAtual]) || Character.isLetter(vetorCharCodigo[posicaoAtual])  || 
+                vetorCharCodigo[posicaoAtual] == '_' || Character.isWhitespace(vetorCharCodigo[posicaoAtual]) && vetorCharCodigo[posicaoAtual] != '$'){
             analisaString(posicaoAtual +1);
         } 
         if (vetorCharCodigo[posicaoAtual] == '$'){
@@ -154,12 +154,9 @@ public class Automato {
 
     /* Analisa caracteres */
     private void analisaCaracter(int posicaoAtual) {
-        if (Character.isDigit(vetorCharCodigo[posicaoAtual])) {
-            analisaDigito(posicaoAtual + 1);
-        }
         if (vetorCharCodigo[posicaoAtual] == '=' || vetorCharCodigo[posicaoAtual] == '+'
                 || vetorCharCodigo[posicaoAtual] == '-' || vetorCharCodigo[posicaoAtual] == '|'
-                || vetorCharCodigo[posicaoAtual] == '&' || vetorCharCodigo[posicaoAtual] == '.') {
+                || vetorCharCodigo[posicaoAtual] == '&' || vetorCharCodigo[posicaoAtual] == '.' || vetorCharCodigo[posicaoAtual] == '>') {
             analisaCaracter(posicaoAtual + 1);
         } else {
             verificaToken(posicaoAtual);
@@ -238,7 +235,7 @@ public class Automato {
         if (mChar.length() == 1) {
             geraToken("_char", recuperaLinha(posicaoAtual), mChar);
         } else {
-            geraTokenDesconhecido(posicaoAtual);
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
         }
         inicioAutomato(posicaoAtual + 1);
     }
@@ -249,7 +246,7 @@ public class Automato {
         if (identificador.startsWith("_")) {
             geraToken("_identificador", recuperaLinha(posicaoAtual), identificador);
         } else {
-            geraTokenDesconhecido(posicaoAtual);
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
         }
         inicioAutomato(posicaoAtual);
     }
