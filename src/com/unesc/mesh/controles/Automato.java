@@ -5,10 +5,13 @@
  */
 package com.unesc.mesh.controles;
 
+import com.sun.org.apache.bcel.internal.generic.PUSH;
 import com.unesc.mesh.view.MainView;;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Stack;
+import javax.print.attribute.standard.Finishings;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
@@ -137,7 +140,7 @@ public class Automato {
         if (vetorCharCodigo[posicaoAtual] == '#'){
             inicioAutomato(posicaoAtual +1);
         } else if (vetorCharCodigo[posicaoAtual] == '$'){
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
             inicioAutomato(posicaoAtual);
         }
         Log.gravar("Comentário de Bloco: " + comentario.replace("#", " ").trim() + " Linhas: " + recuperaLinha(posicaoAtual), Log.LOG);
@@ -203,7 +206,7 @@ public class Automato {
         if (mString.startsWith("\"") && mString.endsWith("\"")){
             geraToken("_string", recuperaLinha(posicaoAtual), mString.replaceAll("\"", ""));
         } else {
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         
         if (vetorCharCodigo[posicaoAtual] == '$'){
@@ -220,7 +223,7 @@ public class Automato {
         if (mLiteral.startsWith("¬") && mLiteral.endsWith("¬")){
             geraToken("_literal", recuperaLinha(posicaoAtual), mLiteral.replaceAll("¬", ""));
         } else {
-            geraTokenDesconhecido(posicaoAtual);
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         if (vetorCharCodigo[posicaoAtual] == '$'){
             inicioAutomato(posicaoAtual);
@@ -235,7 +238,7 @@ public class Automato {
         if (mChar.length() == 1) {
             geraToken("_char", recuperaLinha(posicaoAtual), mChar);
         } else {
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         inicioAutomato(posicaoAtual + 1);
     }
@@ -246,7 +249,7 @@ public class Automato {
         if (identificador.startsWith("_")) {
             geraToken("_identificador", recuperaLinha(posicaoAtual), identificador);
         } else {
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         inicioAutomato(posicaoAtual);
     }
@@ -265,7 +268,7 @@ public class Automato {
                 geraToken("_numint", recuperaLinha(posicaoAtual), numeroInteiro);
             }
         } else {
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         inicioAutomato(posicaoAtual);
     }
@@ -275,7 +278,7 @@ public class Automato {
         if (hashMapTokens.containsKey(getSimboloEncontrado(posicaoAtual))) {
             geraToken(getSimboloEncontrado(posicaoAtual), recuperaLinha(posicaoAtual));
         } else {
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         inicioAutomato(posicaoAtual);
     }
@@ -328,11 +331,11 @@ public class Automato {
         } catch (NumberFormatException e){
             e.printStackTrace();
             Log.gravar(e.getMessage() + "\n" + simboloEncontrado, Log.LOG);
-            geraTokenDesconhecido(recuperaLinha(posicaoAtual));
+            geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
         }
         return null;
     }
-    
+
     /* Popula a tabela */
     private void populaTabela() {
         DefaultTableModel modeloTable;
@@ -373,9 +376,10 @@ public class Automato {
     }
 
     /* Se não encontrar nenhum token conhecido*/
-    private void geraTokenDesconhecido(int linha) {
+    private void geraTokenDesconhecido(int linha, int posicaoAtual) {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get("desconhecido"), "Desconhecido", linha);
         listTokens.add(novoToken);
+        posicaoAtual = vetorCharCodigo.length;
+        inicioAutomato(posicaoAtual -1);
     }
-    
 }
