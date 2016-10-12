@@ -9,6 +9,7 @@ import com.unesc.mesh.controles.Arquivo;
 import com.unesc.mesh.controles.Automato;
 import com.unesc.mesh.controles.Log;
 import com.unesc.mesh.controles.NumeroLinha;
+import com.unesc.mesh.controles.TabelaParsing;
 import com.unesc.mesh.controles.Tokens;
 import java.io.BufferedReader;
 import java.io.File;
@@ -47,7 +48,9 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         NumeroLinha getNumeroLinha = new NumeroLinha(this.codigo_jTextArea);
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
-        adicionarTokens();
+        this.hashMapTokens = new HashMap<String, Integer>();
+        hashMapTokens.put("desconhecido", -1);
+//        adicionarTokens();
     }
 
     /**
@@ -282,7 +285,6 @@ public class MainView extends javax.swing.JFrame {
 
     private void abrir_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_jMenuItemActionPerformed
         try {
-            // TODO add your handling code here:
             abrirArquivo();
         } catch (NullPointerException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
@@ -324,8 +326,10 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_salvar_jButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(this,"Botão de Teste!");
-        System.out.println('\u003C');
+//        JOptionPane.showMessageDialog(this,"Botão de Teste!");
+        TabelaParsing tabParsing = new TabelaParsing();
+        codigo_jTextArea.setText(tabParsing.imprimirTabelaParsing());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void sair_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_jMenuItemActionPerformed

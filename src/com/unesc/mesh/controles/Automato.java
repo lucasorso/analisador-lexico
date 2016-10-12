@@ -380,5 +380,4 @@ public class Automato {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get("desconhecido"), "Desconhecido", linha);
         listTokens.add(novoToken);
     }
-    
 }
