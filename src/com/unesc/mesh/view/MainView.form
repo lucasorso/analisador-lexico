@@ -222,7 +222,7 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="#Ola &#xa;este &#xe9; um comentario de &#xa;Bloco"/>
+                <Property name="text" type="java.lang.String" value="inicio_programa{&#xa;    int _i;&#xa;&#xa;    _i := 1;&#xa;&#xa;    for (;_i &lt; 10; _i ++){&#xa;        &#xa7; comentario&#xa;&#xa;        while (){&#xa;&#xa;        }&#xa;        erro heuheueh&#xa;    }&#xa;&#xa;    # ese &#xe9; um coment&#xe1;rio de &#xa;        bloco #&#xa;&#xa;    escreve(&#xac;Este &#xe9; um literal&#xac;);&#xa;}"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

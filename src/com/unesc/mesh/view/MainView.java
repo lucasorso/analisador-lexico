@@ -9,11 +9,9 @@ import com.unesc.mesh.controles.Arquivo;
 import com.unesc.mesh.controles.Automato;
 import com.unesc.mesh.controles.Log;
 import com.unesc.mesh.controles.NumeroLinha;
-import com.unesc.mesh.controles.TabelaParsing;
 import com.unesc.mesh.controles.Tokens;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -25,11 +23,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-import javafx.print.Collation;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +38,9 @@ public class MainView extends javax.swing.JFrame {
     private File file = null;
 
     List<Tokens> listTokens;
+    ArrayList<List<Integer>> listGramaticaRegra;
     Map<String, Integer> hashMapTokens;
+    Map<String, Integer> hashMapNaoTerminais;
 
     /**
      * Creates new form MainView
@@ -55,9 +50,8 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         NumeroLinha getNumeroLinha = new NumeroLinha(this.codigo_jTextArea);
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
-        this.hashMapTokens = new HashMap<String, Integer>();
-        hashMapTokens.put("desconhecido", -1);
-//        adicionarTokens();
+        adicionarTokens();
+        adicionarNaoTerminais();
     }
 
     /**
@@ -148,7 +142,7 @@ public class MainView extends javax.swing.JFrame {
 
         codigo_jTextArea.setColumns(20);
         codigo_jTextArea.setRows(5);
-        codigo_jTextArea.setText("#Ola \neste é um comentario de \nBloco");
+        codigo_jTextArea.setText("inicio_programa{\n    int _i;\n\n    _i := 1;\n\n    for (;_i < 10; _i ++){\n        § comentario\n\n        while (){\n\n        }\n        erro heuheueh\n    }\n\n    # ese é um comentário de \n        bloco #\n\n    escreve(¬Este é um literal¬);\n}");
         codigo_jScrollPane.setViewportView(codigo_jTextArea);
 
         javax.swing.GroupLayout codigo_jPanelLayout = new javax.swing.GroupLayout(codigo_jPanel);
@@ -433,13 +427,11 @@ public class MainView extends javax.swing.JFrame {
 
     private void analisarCodigo() {
         //Passando Hash Map
-        Automato automato = new Automato(codigo_jTextArea.getText(), (HashMap) hashMapTokens, token_jTable);
+        Automato automato = new Automato(codigo_jTextArea.getText(), (HashMap) hashMapTokens, (HashMap) hashMapNaoTerminais,token_jTable);
     }
 
     private void adicionarTokens() throws IOException {
 
-//        DefaultTableModel modeloTable;
-//        modeloTable = (DefaultTableModel) token_jTable.getModel();
         this.hashMapTokens = new HashMap<String, Integer>();
 
         File file = new File(getClass().getResource("../arquivos/tokens.txt").getFile());
@@ -450,25 +442,38 @@ public class MainView extends javax.swing.JFrame {
             String[] valor;
             valor = linha.split(" "); //separa por espaço número e palavra
             hashMapTokens.put(valor[0].toString(), Integer.parseInt(valor[1])); // adiciona no ashMap
-//            modeloTable.addRow(new Object[]{token.getChave(), token.getValor()});
         }
-//        imprimeHashs();
     }
-    ArrayList<List<Integer>> arrayList;
+    
+       private void adicionarNaoTerminais() throws IOException {
+
+        this.hashMapNaoTerminais = new HashMap<String, Integer>();
+
+        File file = new File(getClass().getResource("../arquivos/naoTerminaisCodificados.txt").getFile());
+        FileReader fileReader = new FileReader(file.getAbsoluteFile());
+        BufferedReader bufferedReader = new LineNumberReader(fileReader);
+        while (bufferedReader.ready()) {
+            String linha = bufferedReader.readLine();
+            String[] valor;
+            valor = linha.split(" "); //separa por espaço número e palavra
+            hashMapNaoTerminais.put(valor[1].toString(), Integer.parseInt(valor[0])); // adiciona no ashMap
+        }
+    }
+    
+    
     private void adicionarRegrasGramatica() throws IOException{
-        arrayList = new ArrayList<List<Integer>>();
+        listGramaticaRegra = new ArrayList<List<Integer>>();
         File file = new File(getClass().getResource("../arquivos/GramaticaCodificada.txt").getFile());
         FileReader fileReader = new FileReader(file.getAbsoluteFile());
         BufferedReader bufferedReader = new LineNumberReader(fileReader);
         while (bufferedReader.ready()){
             String linha = bufferedReader.readLine();
-//            String[] valor;
-//            String teste = linha.replace("-", "");
             int[] valorInt = Arrays.stream(linha.replace("-", "").split("	")).map(String::trim).mapToInt(Integer::parseInt).toArray();
             List<Integer> list = Arrays.stream(valorInt).boxed().collect(Collectors.toList());
-            arrayList.add(list);
+            list.remove(0);
+            listGramaticaRegra.add(list);
         }
-        imprimirLista(arrayList);
+        imprimirLista(listGramaticaRegra);
     }
     
     private void imprimirLista(List list){

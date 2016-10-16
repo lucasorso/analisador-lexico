@@ -5,13 +5,10 @@
  */
 package com.unesc.mesh.controles;
 
-import com.sun.org.apache.bcel.internal.generic.PUSH;
 import com.unesc.mesh.view.MainView;;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
-import javax.print.attribute.standard.Finishings;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
@@ -30,18 +27,21 @@ public class Automato {
     private Integer numeroInteiro;
     private Float numeroFloat;
     private String comentario;
+    private Tokens lastToken;
     private final char[] vetorCharCodigo;
     boolean finalDeArquivo = false;
     private final HashMap hashMapTokens;
+    private final HashMap naoTerminais;
     private final JTable token_jTable;
     private final List<Tokens> listTokens = new ArrayList<Tokens>();
 //    String expressaoRegularNumero = "^([+-]?(\\d+\\.)?\\d+)$";
     String expressaoRegularNumero = "(([1-9][0-9]*)|(0))([.,][0-9]+)?";
 
     /* Construtor do automato */
-    public Automato(String codigo, HashMap hashMapTokens, JTable token_jTable) {
+    public Automato(String codigo, HashMap hashMapTokens, HashMap naoTerminais,JTable token_jTable) {
         this.vetorCharCodigo = (codigo + "$").toCharArray();
         this.hashMapTokens = hashMapTokens;
+        this.naoTerminais = naoTerminais;
         this.token_jTable = token_jTable;
         int posicaoAtual = 0;
         inicioAutomato(posicaoAtual);
@@ -52,7 +52,16 @@ public class Automato {
         System.gc();
         try {
             posicaoAteToken = posicaoAtual;
-            if (Character.isLetter(vetorCharCodigo[posicaoAtual])) {
+            
+            if (listTokens.size() != 0){
+                lastToken = listTokens.get(listTokens.size() -1);
+            }
+           
+            if (lastToken != null && lastToken.getValor().equals("Desconhecido")){
+                geraToken(String.valueOf('$'), recuperaLinha(posicaoAtual));
+                populaTabela();
+                return;
+            } else if (Character.isLetter(vetorCharCodigo[posicaoAtual])) {
                 analisaPalavraReservada(posicaoAtual + 1);
             } else if (Character.isDigit(vetorCharCodigo[posicaoAtual])) {
                 analisaDigito(posicaoAtual + 1);
@@ -93,7 +102,7 @@ public class Automato {
                 geraToken(String.valueOf('$'), recuperaLinha(posicaoAtual));
                 populaTabela();
             }
-            System.out.println(posicaoAtual);
+//            System.out.println(posicaoAtual);
         } catch (ArrayIndexOutOfBoundsException e){
             e.printStackTrace();
         }
@@ -343,6 +352,7 @@ public class Automato {
         listTokens.stream().forEach((listToken) -> {
             modeloTable.addRow(new Object[]{listToken.linha, listToken.valor, listToken.codigo});
         });
+//        Sintatico sint = new Sintatico(listTokens, hashMapTokens, naoTerminais);
     }
 
     /*
@@ -380,6 +390,7 @@ public class Automato {
         Tokens novoToken = new Tokens((Integer) hashMapTokens.get("desconhecido"), "Desconhecido", linha);
         listTokens.add(novoToken);
         posicaoAtual = vetorCharCodigo.length;
-        inicioAutomato(posicaoAtual -1);
+        /*Comentando esta linha o Analisador léxico para*/
+//        inicioAutomato(posicaoAtual -1);
     }
 }
