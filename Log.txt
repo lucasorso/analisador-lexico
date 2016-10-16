@@ -353,3 +353,76 @@ Sun Sep 25 13:21:51 BRT 2016 : Comentário de Bloco: null§ comentario ese é um
 Sun Sep 25 13:22:31 BRT 2016 : Comentário: null  comentario Linha: 7
 Sun Sep 25 13:22:35 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
         bloco Linhas: 16
+Mon Oct 03 19:32:51 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Mon Oct 03 19:33:15 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 19:33:16 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 19:34:20 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 19:34:21 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 19:58:06 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 19:58:07 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 19:58:17 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 19:58:18 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 19:58:23 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 19:58:24 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 19:58:31 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 19:58:32 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 20:18:21 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 20:18:22 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 20:40:26 BRT 2016 : Comentário de Bloco: null|| "teste da string"
+escreve ¬literal 
+for if¬ Linhas: 6
+Mon Oct 03 20:40:52 BRT 2016 : Comentário: null <> Linha: 2
+Mon Oct 03 20:40:52 BRT 2016 : Comentário de Bloco: null§<>|| "teste da string"
+escreve ¬literal 
+for if¬ Linhas: 6
+Mon Oct 03 20:42:47 BRT 2016 : Comentário: null <> Linha: 2
+Mon Oct 03 20:43:00 BRT 2016 : Comentário: null <> Linha: 2
+Mon Oct 03 20:44:02 BRT 2016 : Comentário: null <> Linha: 2
+Mon Oct 03 20:44:09 BRT 2016 : Comentário: null <> Linha: 2
+Mon Oct 03 21:41:26 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Mon Oct 03 21:41:37 BRT 2016 : C:\Users\comp15\Documents\NetBeansProjects\analisador-lexico-mesh (Acesso negado)
+Mon Oct 03 21:41:50 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:41:51 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:42:42 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:43:04 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:43:05 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:43:29 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:43:30 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:44:16 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:44:17 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:49:47 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:49:48 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:53:00 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:53:00 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:56:48 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco Linhas: 3
+Mon Oct 03 21:56:52 BRT 2016 : Comentário de Bloco: nullOla 
+este é um comentario de 
+Bloco
+
+int Linhas: 5
+Mon Oct 03 21:57:24 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:57:25 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Mon Oct 03 21:58:16 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 21:59:34 BRT 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 03 22:00:08 BRT 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16

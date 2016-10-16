@@ -5,7 +5,7 @@ Trabalho acadêmico realizado para a disciplina de compiladores solicitado pela 
 UNESC - Universidade do Extremo Sul Catarinense.
 
 
-Acadêmicos Lucas Orso, Gustabo Zanin.
+Acadêmicos Lucas Orso, Gustavo Zanin.
 
 
 Nestas primeira etapa do projeto será construído um analisador léxico capaz de indentificar os tokes resgistrados

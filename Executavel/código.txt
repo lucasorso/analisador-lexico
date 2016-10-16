@@ -1,0 +1,19 @@
+inicio_programa{
+    int _i;
+
+    _i := 1;
+
+    for (;_i < 10; _i ++){
+        § comentario
+
+        while (){
+
+        }
+        erro heuheueh
+    }
+
+    # ese é um comentário de 
+        bloco #
+
+    escreve(¬Este é um literal¬);
+}

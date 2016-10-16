@@ -13,14 +13,21 @@ import com.unesc.mesh.controles.TabelaParsing;
 import com.unesc.mesh.controles.Tokens;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import javafx.print.Collation;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
@@ -326,10 +333,11 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_salvar_jButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        JOptionPane.showMessageDialog(this,"Botão de Teste!");
-        TabelaParsing tabParsing = new TabelaParsing();
-        codigo_jTextArea.setText(tabParsing.imprimirTabelaParsing());
-        
+        try {
+            adicionarRegrasGramatica();
+        } catch (IOException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void sair_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sair_jMenuItemActionPerformed
@@ -446,7 +454,27 @@ public class MainView extends javax.swing.JFrame {
         }
 //        imprimeHashs();
     }
-
+    ArrayList<List<Integer>> arrayList;
+    private void adicionarRegrasGramatica() throws IOException{
+        arrayList = new ArrayList<List<Integer>>();
+        File file = new File(getClass().getResource("../arquivos/GramaticaCodificada.txt").getFile());
+        FileReader fileReader = new FileReader(file.getAbsoluteFile());
+        BufferedReader bufferedReader = new LineNumberReader(fileReader);
+        while (bufferedReader.ready()){
+            String linha = bufferedReader.readLine();
+//            String[] valor;
+//            String teste = linha.replace("-", "");
+            int[] valorInt = Arrays.stream(linha.replace("-", "").split("	")).map(String::trim).mapToInt(Integer::parseInt).toArray();
+            List<Integer> list = Arrays.stream(valorInt).boxed().collect(Collectors.toList());
+            arrayList.add(list);
+        }
+        imprimirLista(arrayList);
+    }
+    
+    private void imprimirLista(List list){
+        list.forEach(System.out::println);
+    }
+    
     private void limparCampo() {
         codigo_jTextArea.setText("");
     }
