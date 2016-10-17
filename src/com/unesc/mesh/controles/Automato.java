@@ -352,7 +352,7 @@ public class Automato {
         listTokens.stream().forEach((listToken) -> {
             modeloTable.addRow(new Object[]{listToken.linha, listToken.valor, listToken.codigo});
         });
-//        Sintatico sint = new Sintatico(listTokens, hashMapTokens, naoTerminais);
+        Sintatico sint = new Sintatico(listTokens, hashMapTokens, naoTerminais);
     }
 
     /*
