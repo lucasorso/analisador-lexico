@@ -235,4 +235,13 @@ public class TabelaParsing {
             return 0;
         }
     }
+    
+    public boolean contemRegra(int a, int b){
+        Integer num = tabParsing[a][b];
+        if (num != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

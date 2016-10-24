@@ -24,7 +24,7 @@ public class Sintatico {
     private int i = -1;
     private int j;
     public static int FINAL_DE_ARQUIVO = 54;
-    public static int INICIO_PILHA = 0;
+    public static int INICIO_PROGRMA = 58;
     private String analisando = "Analisando";
     private HashMap<String, Integer> terminais = new HashMap<String, Integer>();
     private HashMap<String, Integer> naoTerminais = new HashMap<String, Integer>();
@@ -32,7 +32,6 @@ public class Sintatico {
     private List<Tokens> listTokensEncotrados;
     private final Stack<Integer> pilha = new Stack<Integer>();
     private final TabelaParsing tabParsing;
-    
 
     public Sintatico(Automato automato) {
         ArquivosUtil arqUtil = new ArquivosUtil();
@@ -41,95 +40,88 @@ public class Sintatico {
         this.tabParsing = new TabelaParsing();
         this.naoTerminais = arqUtil.adicionarNaoTerminais();
         this.gramatica = arqUtil.adicionarRegrasGramatica();
-        List<Integer> pilhaInicio = new ArrayList<>();
-        pilhaInicio = gramatica.get(INICIO_PILHA);
-        Collections.reverse(pilhaInicio);
+//        List<Integer> pilhaInicio = new ArrayList<>();
+//        pilhaInicio = gramatica.get(INICIO_PILHA);
+//        Collections.reverse(pilhaInicio);
         pilha.add(FINAL_DE_ARQUIVO);
-        pilha.addAll(pilhaInicio);
+        pilha.add(INICIO_PROGRMA);
     }
-    
-    
-    public void analisadorSintatico(JTextArea area, Tokens token) throws RuntimeException{
+
+    public boolean analisadorSintatico(JTextArea area, Tokens token) throws RuntimeException {
         x = pilha.peek();
-        if (token.getValor() != null){
-            a = token.getChave();
+        if (token.getValor() != null) {
+            a = token.getCodigo();
         }
         while (x != 54) {
-            /*
-            Quando for trabalhar com a lista da gramatica
-            lembrar que ela começa com 0 e não 1
-             */
-//            List<Integer> listaInvertida = gramatica.get(listTokens.get(i).getChave() -1);
             System.out.println(pilha.toString());
             System.out.println(x);
             System.out.println(a);
-            area.append("Pilha: " + pilha.toString());
-            area.append("\n");
-            area.append("  X  : " + x);
-            area.append("\n");
-            area.append("  A  : " + a);
-            area.append("\n");
+            area.append("Pilha: " + pilha.toString() + "\n");
+            area.append("  x  : " + x + "\n");
+            area.append("  a  : " + a + "\n");
             if (x == 10) {
                 pilha.pop();
                 x = pilha.peek();
-            } else if (terminais.containsValue(x) && x != -1 && x != 58 && x != 59 && x != 60 && x != 61) {
+            } else if (x < 58) {
                 if (x == a) {
                     pilha.pop();
-                    System.out.println("Saia do Repita !");
-                    break;
+                    System.out.println("Retirou o elemento do topo da pilha");
+                    area.append("Retirou elemento da pilha\n");
+                    return true;
                 } else {
                     System.out.println("ERRO !");
-                    area.append("ERRO : " + pilha.toString());
-                    area.append("\n");
-                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
+                    area.append("\nErro sintâtico Linha : " + token.getLinha());
+                    return false;
+//                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
                 }
-            } else if (naoTerminais.containsValue(x)) {
-                if (tabParsing.getRegra(x, a) != 0) {
-                    pilha.pop();
-                    List<Integer> conteudo = gramatica.get(tabParsing.getRegra(x, a -1));
-                    Collections.reverse(conteudo);
-                    pilha.addAll(conteudo);
-                    x = pilha.peek();
-                } else {
-                    System.out.println("ERRO !");
-                    area.append("ERRO : " + pilha.toString());
-                    area.append("\n");
-                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
-                }
+            } else if (tabParsing.contemRegra(x, a)) {
+                pilha.pop();
+                System.out.println("Regra tabela de parsing: " + tabParsing.getRegra(x, a));
+                area.append("Regra tabela de parsing: " + tabParsing.getRegra(x, a) + "\n");
+                List<Integer> conteudo = gramatica.get(tabParsing.getRegra(x, a) -1);
+                Collections.reverse(conteudo);
+                pilha.addAll(conteudo);
+                x = pilha.peek();
+            } else {
+                System.out.println("ERRO !");
+                area.append("\nErro sintâtico Linha : " + token.getLinha());
+                return false;
+//                throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
             }
         }
-        System.out.println("SAIU DO LAÇO");
+        System.out.println("Saiu do laço");
+        area.append("Saiu do laço");
+        return true;
     }
-
     /* Código do Analisador sintático */
- /*
-           Início
-                   X recebe o topo da pilha
-                   “a”  recebe o símbolo da entrada
-           Repita
-                   Se X=î então
-                           Retire o elemento do topo da pilha
-                           X recebe o topo da pilha
-                   Senão
-                   Se X é terminal então
-                           Se X=a então
-                              Retire o elemento do topo da pilha
-                              Sai do Repita
-                           Senão
-                          Erro
-                              Encerra o programa 		
-                   Fim Se
-                   Senão (* X é não-terminal*)
-                           Se M(X,a) <> VAZIO então (existe uma regra)
+    /*
+            Início
+                    X recebe o topo da pilha
+                    “a”  recebe o símbolo da entrada
+            Repita
+                    Se X=î então
+                            Retire o elemento do topo da pilha
+                            X recebe o topo da pilha
+                    Senão
+                    Se X é terminal então
+                            Se X=a então
+                                Retire o elemento do topo da pilha
+                                Sai do Repita
+                            Senão
+                                Erro
+                                Encerra o programa 		
+                    Fim Se
+                    Senão (* X é não-terminal*)
+                            Se M(X,a) <> VAZIO então (existe uma regra)
                                     Retire o elemento do topo da pilha 
                                    Coloque o conteúdo da regra na pilha
                                     X recebe o topo da pilha
-                           Senão
+                            Senão
                                    Erro
                                    Encerra o programa
-                           Fim Se
-                   Fim Se
-           Até X=$ (*pilha vazia, análise concluída*)
-           Fim
-     */
+                            Fim Se
+                    Fim Se
+            Até X=$ (*pilha vazia, análise concluída*)
+            Fim
+    */
 }

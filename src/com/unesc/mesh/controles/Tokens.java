@@ -26,14 +26,6 @@ public class Tokens {
         this.linha = linha;
     }
 
-    public int getChave() {
-        return codigo;
-    }
-
-    public void setChave(int chave) {
-        this.codigo = chave;
-    }
-
     public String getValor() {
         return valor;
     }
@@ -41,6 +33,24 @@ public class Tokens {
     public void setValor(String valor) {
         this.valor = valor;
     }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getLinha() {
+        return linha;
+    }
+
+    public void setLinha(int linha) {
+        this.linha = linha;
+    }
+    
+    
 
     @Override
     public String toString() {

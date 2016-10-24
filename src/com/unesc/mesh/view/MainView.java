@@ -432,14 +432,18 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void analisarCodigo() {
-        areaSintatico.setText("");
+        areaSintatico.setText(" ");
         //Passando Hash Map
         Automato automato = new Automato(codigo_jTextArea.getText(), token_jTable);
         Sintatico sintatio = new Sintatico(automato);
         try {
             List<Tokens> listTokensEncontrados = automato.getListaTokens();
             for (Tokens t : automato.getListaTokens()){
-                sintatio.analisadorSintatico(areaSintatico, t);
+                if (sintatio.analisadorSintatico(areaSintatico, t)){
+                    continue;
+                } else {
+                    return;
+                }
             }
         } catch (RuntimeException ex) {
             System.out.println("\nErro " + ex.getMessage());
