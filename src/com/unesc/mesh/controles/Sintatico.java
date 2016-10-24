@@ -5,16 +5,13 @@
  */
 package com.unesc.mesh.controles;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDynamic.map;
 import com.unesc.mesh.util.ArquivosUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 import java.util.Stack;
-import java.util.stream.Collectors;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -23,27 +20,86 @@ import java.util.stream.Collectors;
 public class Sintatico {
 
     private int x;
-    private String a;
-    private final HashMap<String, Integer> terminais;
-    private final HashMap<String, Integer> naoTerminais;
-    private final List<Tokens> listTokens;
+    private int a;
+    private int i = -1;
+    private int j;
+    public static int FINAL_DE_ARQUIVO = 54;
+    public static int INICIO_PILHA = 0;
+    private String analisando = "Analisando";
+    private HashMap<String, Integer> terminais = new HashMap<String, Integer>();
+    private HashMap<String, Integer> naoTerminais = new HashMap<String, Integer>();
+    private List<List<Integer>> gramatica = new ArrayList<List<Integer>>();
+    private final List<Tokens> listTokensEncotrados;
     private final Stack<Integer> pilha = new Stack<Integer>();
     private final TabelaParsing tabParsing;
-    private final ArquivosUtil arquivosUtil = new ArquivosUtil();
-    private List<List<Integer>> gramatica = new ArrayList<List<Integer>>();
-    public static final int FINAL_DE_ARQUIVO = 54;
-    public static final int INICIO_PILHA = 0;
-    private ListIterator<Tokens> it;
+    
 
-    Sintatico(List<Tokens> listTokens, HashMap hashMapTokens, HashMap naoTerminais) {
-        this.listTokens = listTokens;
-        this.terminais = hashMapTokens;
-        this.naoTerminais = naoTerminais;
-        this.it = listTokens.listIterator();
-        tabParsing = new TabelaParsing();
-        gramatica = arquivosUtil.adicionarRegrasGramatica();
-//        terminais = terminaisOld.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
-        analisadorSintatico();
+    public Sintatico(Automato automato) {
+        ArquivosUtil arqUtil = new ArquivosUtil();
+        this.terminais = arqUtil.adicionarHashMapTokens();
+        this.listTokensEncotrados = automato.getListaTokens();
+        this.tabParsing = new TabelaParsing();
+        this.naoTerminais = arqUtil.adicionarNaoTerminais();
+        this.gramatica = arqUtil.adicionarRegrasGramatica();
+        List<Integer> pilhaInicio = new ArrayList<>();
+        pilhaInicio = gramatica.get(INICIO_PILHA);
+        Collections.reverse(pilhaInicio);
+        pilha.add(FINAL_DE_ARQUIVO);
+        pilha.addAll(pilhaInicio);
+    }
+    
+    
+    public void analisadorSintatico(JTextArea area) throws RuntimeException{
+        i++;
+        x = pilha.peek();
+        if (listTokensEncotrados.get(i) != null){
+            a = listTokensEncotrados.get(i).getChave();    
+        }
+        while (x != 54) {
+            /*
+            Quando for trabalhar com a lista da gramatica
+            lembrar que ela começa com 0 e não 1
+             */
+//            List<Integer> listaInvertida = gramatica.get(listTokens.get(i).getChave() -1);
+            System.out.println(pilha.toString());
+            System.out.println(x);
+            System.out.println(a);
+            area.append("Pilha: " + pilha.toString());
+            area.append("\n");
+            area.append("  X  : " + x);
+            area.append("\n");
+            area.append("  A  : " + a);
+            area.append("\n");
+            if (x == 10) {
+                pilha.pop();
+                x = pilha.peek();
+            } else if (terminais.containsValue(x) && x != -1 && x != 58 && x != 59 && x != 60 && x != 61) {
+                if (x == a) {
+                    pilha.pop();
+                    System.out.println("Saia do Repita !");
+                    analisadorSintatico(area);
+                } else {
+                    System.out.println("ERRO !");
+                    area.append("ERRO : " + pilha.toString());
+                    area.append("\n");
+                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
+                }
+            } else if (naoTerminais.containsValue(x)) {
+                if (tabParsing.getRegra(x, a) != 0) {
+                    pilha.pop();
+                    List<Integer> conteudo = gramatica.get(tabParsing.getRegra(x, a -1));
+                    Collections.reverse(conteudo);
+                    pilha.addAll(conteudo);
+                    x = pilha.peek();
+                } else {
+                    System.out.println("ERRO !");
+                    area.append("ERRO : " + pilha.toString());
+                    area.append("\n");
+                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
+                }
+            }
+        }
+        System.out.println("SAIU DO LAÇO");
     }
 
     /* Código do Analisador sintático */
@@ -77,62 +133,4 @@ public class Sintatico {
            Até X=$ (*pilha vazia, análise concluída*)
            Fim
      */
-    public void analisadorSintatico() {
-        /*Adicionando o final de arquivo na pilha*/
-        List<Integer> pilhaInicio = new ArrayList<>();
-        pilhaInicio = gramatica.get(INICIO_PILHA);
-        Collections.reverse(pilhaInicio);
-        pilha.add(FINAL_DE_ARQUIVO);
-        pilha.addAll(pilhaInicio);
-        int i = 0;
-        int x = pilha.peek();
-        int a = listTokens.get(i).getChave();
-
-        while (x != 54) {
-            /*
-            Quando for trabalhar com a lista da gramatica
-            lembrar que ela começa com 0 e não 1
-             */
-//            List<Integer> listaInvertida = gramatica.get(listTokens.get(i).getChave() -1);
-            System.out.println(pilha.toString());
-            System.out.println(x);
-            System.out.println(a);
-            if (x == 10) {
-                pilha.pop();
-                x = pilha.peek();
-            } else if (terminais.containsValue(x)) {
-                if (x == a) {
-                    pilha.pop();
-                    i++;
-                    a = listTokens.get(i).getChave();
-                    List<Integer> conteudo = gramatica.get(a);
-                    Collections.reverse(conteudo);
-                    pilha.addAll(conteudo);
-                    x = pilha.peek();
-                    continue;
-                } else {
-                    System.out.println("ERRO !");
-                    break;
-                }
-            } else if (naoTerminais.containsValue(x)) {
-                if (tabParsing.getRegra(x, a) != 0) {
-                    pilha.pop();
-                    List<Integer> conteudo = gramatica.get(tabParsing.getRegra(x, a));
-                    Collections.reverse(conteudo);
-                    pilha.addAll(conteudo);
-                    x = pilha.peek();
-                } else {
-                    System.out.println("ERRO !");
-                    break;
-                }
-            }
-            System.out.println(pilha.toString());
-            System.out.println(x);
-            System.out.println(a);
-            /*Funcção para inverter lista*/
-//            Collections.reverse(listaInvertida);
-//            pilha.addAll(listaInvertida);
-//            System.out.println(pilha.toString());
-        }
-    }
 }

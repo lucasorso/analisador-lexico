@@ -5,9 +5,7 @@
  */
 package com.unesc.mesh.controles;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -23,16 +21,20 @@ public class TabelaParsing {
     public TabelaParsing() {
         tabParsing[58][7] = 1;
         tabParsing[59][33] = 2;
+        tabParsing[59][2] = 2;
         tabParsing[59][6] = 2;
+        tabParsing[59][8] = 2;
         tabParsing[59][12] = 2;
         tabParsing[59][18] = 2;
         tabParsing[59][19] = 2;
-        tabParsing[60][18] = 27;
+        tabParsing[60][8] = 27;
         tabParsing[60][2] = 26;
         tabParsing[60][6] = 26;
         tabParsing[60][12] = 26;
+        tabParsing[60][18] = 27;
         tabParsing[60][19] = 27;
         tabParsing[60][33] = 27;
+        tabParsing[61][8] = 4;
         tabParsing[61][18] = 4;
         tabParsing[61][19] = 3;
         tabParsing[61][33] = 4;
@@ -207,8 +209,6 @@ public class TabelaParsing {
         tabParsing[99][37] = 66;
         tabParsing[99][38] = 65;
         tabParsing[99][40] = 64;
-        
-
     }
     
     /*Retorna um String com os valores da tabela*/
@@ -228,6 +228,11 @@ public class TabelaParsing {
     }
     
     public int getRegra(int a, int b){
-        return tabParsing[a][b];
+        Integer num = tabParsing[a][b];
+        if (num != null){
+            return num;
+        } else {
+            return 0;
+        }
     }
 }

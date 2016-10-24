@@ -2,6 +2,7 @@ package com.unesc.mesh.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
@@ -39,5 +40,47 @@ public class ArquivosUtil {
             exception.printStackTrace();
         }
         return listGramaticaRegra;
+    }
+
+    public HashMap<String, Integer> adicionarHashMapTokens(){
+
+        HashMap<String, Integer> hashMapTokens = new HashMap<String, Integer>();
+        try {
+            File file = new File(getClass().getResource("../arquivos/tokens.txt").getFile());
+            FileReader fileReader = new FileReader(file.getAbsoluteFile());
+            BufferedReader bufferedReader = new LineNumberReader(fileReader);
+            while (bufferedReader.ready()) {
+                String linha = bufferedReader.readLine();
+                String[] valor;
+                valor = linha.split(" "); //separa por espaço número e palavra
+                hashMapTokens.put(valor[0].toString(), Integer.parseInt(valor[1])); // adiciona no ashMap
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("ArquivoUtil.java -> Erro ao abrir arquivo : " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("ArquivoUtil.java -> Erro ao manipular arquivo : " + ex.getMessage());
+        }
+        return hashMapTokens;
+    }
+
+    public HashMap<String, Integer> adicionarNaoTerminais(){
+
+        HashMap<String, Integer> hashMapNaoTerminais = new HashMap<String, Integer>();
+        try {
+            File file = new File(getClass().getResource("../arquivos/naoTerminaisCodificados.txt").getFile());
+            FileReader fileReader = new FileReader(file.getAbsoluteFile());
+            BufferedReader bufferedReader = new LineNumberReader(fileReader);
+            while (bufferedReader.ready()) {
+                String linha = bufferedReader.readLine();
+                String[] valor;
+                valor = linha.split(" "); //separa por espaço número e palavra
+                hashMapNaoTerminais.put(valor[1].toString(), Integer.parseInt(valor[0])); // adiciona no ashMap
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("ArquivoUtil.java -> Erro ao abrir arquivo : " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("ArquivoUtil.java -> Erro ao manipular arquivo : " + ex.getMessage());
+        }
+        return hashMapNaoTerminais;
     }
 }

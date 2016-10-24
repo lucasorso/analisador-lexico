@@ -9,6 +9,7 @@ import com.unesc.mesh.controles.Arquivo;
 import com.unesc.mesh.controles.Automato;
 import com.unesc.mesh.controles.Log;
 import com.unesc.mesh.controles.NumeroLinha;
+import com.unesc.mesh.controles.Sintatico;
 import com.unesc.mesh.controles.Tokens;
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,8 +51,8 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         NumeroLinha getNumeroLinha = new NumeroLinha(this.codigo_jTextArea);
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
-        adicionarTokens();
-        adicionarNaoTerminais();
+//        adicionarTokens();
+//        adicionarNaoTerminais();
     }
 
     /**
@@ -74,6 +75,9 @@ public class MainView extends javax.swing.JFrame {
         token_jPanel = new javax.swing.JPanel();
         token_jScrollPane = new javax.swing.JScrollPane();
         token_jTable = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaSintatico = new javax.swing.JTextArea();
         jMenuBar = new javax.swing.JMenuBar();
         arquivo_jMenu = new javax.swing.JMenu();
         abrir_jMenuItem = new javax.swing.JMenuItem();
@@ -149,16 +153,11 @@ public class MainView extends javax.swing.JFrame {
         codigo_jPanel.setLayout(codigo_jPanelLayout);
         codigo_jPanelLayout.setHorizontalGroup(
             codigo_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, codigo_jPanelLayout.createSequentialGroup()
-                .addComponent(codigo_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(codigo_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
         );
         codigo_jPanelLayout.setVerticalGroup(
             codigo_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(codigo_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(codigo_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(codigo_jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         token_jPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Token"));
@@ -199,17 +198,28 @@ public class MainView extends javax.swing.JFrame {
         token_jPanel.setLayout(token_jPanelLayout);
         token_jPanelLayout.setHorizontalGroup(
             token_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(token_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(token_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(token_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
         );
         token_jPanelLayout.setVerticalGroup(
             token_jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(token_jPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(token_jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(token_jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Saída do Sintático"));
+
+        areaSintatico.setColumns(20);
+        areaSintatico.setRows(5);
+        jScrollPane1.setViewportView(areaSintatico);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
         );
 
         arquivo_jMenu.setText("Arquvio");
@@ -259,11 +269,12 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(topo_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(topo_jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(codigo_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(token_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -275,10 +286,12 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(topo_jPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(codigo_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(token_jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -299,7 +312,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_salvar_jMenuItemActionPerformed
 
     private void desenvolvedores_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desenvolvedores_jMenuItemActionPerformed
-        DevelopersView devShow =  new DevelopersView();
+        DevelopersView devShow = new DevelopersView();
         devShow.setVisible(true);
     }//GEN-LAST:event_desenvolvedores_jMenuItemActionPerformed
 
@@ -371,21 +384,11 @@ public class MainView extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new MainView().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (InstantiationException ex) {
-                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
+                new MainView().setVisible(true);
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException | IOException ex) {
+                Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -395,6 +398,7 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton abrir_jButton;
     private javax.swing.JMenuItem abrir_jMenuItem;
     private javax.swing.JButton analisar_JButton;
+    private javax.swing.JTextArea areaSintatico;
     private javax.swing.JMenu arquivo_jMenu;
     private javax.swing.JPanel codigo_jPanel;
     private javax.swing.JScrollPane codigo_jScrollPane;
@@ -402,6 +406,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JMenuItem desenvolvedores_jMenuItem;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem sair_jMenuItem;
     private javax.swing.JButton salvar_jButton;
     private javax.swing.JMenuItem salvar_jMenuItem;
@@ -426,47 +432,51 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void analisarCodigo() {
+        areaSintatico.setText("");
         //Passando Hash Map
-        Automato automato = new Automato(codigo_jTextArea.getText(), (HashMap) hashMapTokens, (HashMap) hashMapNaoTerminais,token_jTable);
-    }
-
-    private void adicionarTokens() throws IOException {
-
-        this.hashMapTokens = new HashMap<String, Integer>();
-
-        File file = new File(getClass().getResource("../arquivos/tokens.txt").getFile());
-        FileReader fileReader = new FileReader(file.getAbsoluteFile());
-        BufferedReader bufferedReader = new LineNumberReader(fileReader);
-        while (bufferedReader.ready()) {
-            String linha = bufferedReader.readLine();
-            String[] valor;
-            valor = linha.split(" "); //separa por espaço número e palavra
-            hashMapTokens.put(valor[0].toString(), Integer.parseInt(valor[1])); // adiciona no ashMap
+        Automato automato = new Automato(codigo_jTextArea.getText(), token_jTable);
+        Sintatico sintatio = new Sintatico(automato);
+        try {
+            sintatio.analisadorSintatico(areaSintatico);
+        } catch (RuntimeException ex) {
+            System.out.println("\nErro " + ex.getMessage());
         }
     }
-    
-       private void adicionarNaoTerminais() throws IOException {
 
-        this.hashMapNaoTerminais = new HashMap<String, Integer>();
-
-        File file = new File(getClass().getResource("../arquivos/naoTerminaisCodificados.txt").getFile());
-        FileReader fileReader = new FileReader(file.getAbsoluteFile());
-        BufferedReader bufferedReader = new LineNumberReader(fileReader);
-        while (bufferedReader.ready()) {
-            String linha = bufferedReader.readLine();
-            String[] valor;
-            valor = linha.split(" "); //separa por espaço número e palavra
-            hashMapNaoTerminais.put(valor[1].toString(), Integer.parseInt(valor[0])); // adiciona no ashMap
-        }
-    }
-    
-    
-    private void adicionarRegrasGramatica() throws IOException{
+//    private void adicionarTokens() throws IOException {
+//
+//        this.hashMapTokens = new HashMap<String, Integer>();
+//
+//        File file = new File(getClass().getResource("../arquivos/tokens.txt").getFile());
+//        FileReader fileReader = new FileReader(file.getAbsoluteFile());
+//        BufferedReader bufferedReader = new LineNumberReader(fileReader);
+//        while (bufferedReader.ready()) {
+//            String linha = bufferedReader.readLine();
+//            String[] valor;
+//            valor = linha.split(" "); //separa por espaço número e palavra
+//            hashMapTokens.put(valor[0].toString(), Integer.parseInt(valor[1])); // adiciona no ashMap
+//        }
+//    }
+//    private void adicionarNaoTerminais() throws IOException {
+//
+//        this.hashMapNaoTerminais = new HashMap<String, Integer>();
+//
+//        File file = new File(getClass().getResource("../arquivos/naoTerminaisCodificados.txt").getFile());
+//        FileReader fileReader = new FileReader(file.getAbsoluteFile());
+//        BufferedReader bufferedReader = new LineNumberReader(fileReader);
+//        while (bufferedReader.ready()) {
+//            String linha = bufferedReader.readLine();
+//            String[] valor;
+//            valor = linha.split(" "); //separa por espaço número e palavra
+//            hashMapNaoTerminais.put(valor[1].toString(), Integer.parseInt(valor[0])); // adiciona no ashMap
+//        }
+//    }
+    private void adicionarRegrasGramatica() throws IOException {
         listGramaticaRegra = new ArrayList<List<Integer>>();
         File file = new File(getClass().getResource("../arquivos/GramaticaCodificada.txt").getFile());
         FileReader fileReader = new FileReader(file.getAbsoluteFile());
         BufferedReader bufferedReader = new LineNumberReader(fileReader);
-        while (bufferedReader.ready()){
+        while (bufferedReader.ready()) {
             String linha = bufferedReader.readLine();
             int[] valorInt = Arrays.stream(linha.replace("-", "").split("	")).map(String::trim).mapToInt(Integer::parseInt).toArray();
             List<Integer> list = Arrays.stream(valorInt).boxed().collect(Collectors.toList());
@@ -475,11 +485,11 @@ public class MainView extends javax.swing.JFrame {
         }
         imprimirLista(listGramaticaRegra);
     }
-    
-    private void imprimirLista(List list){
+
+    private void imprimirLista(List list) {
         list.forEach(System.out::println);
     }
-    
+
     private void limparCampo() {
         codigo_jTextArea.setText("");
     }

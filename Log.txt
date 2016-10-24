@@ -503,3 +503,94 @@ Mon Oct 17 21:24:46 BRST 2016 : Comentário: null  comentario Linha: 7
 Mon Oct 17 21:36:27 BRST 2016 : Comentário: null  comentario Linha: 7
 Mon Oct 17 21:43:33 BRST 2016 : Comentário: null  comentario Linha: 7
 Mon Oct 17 21:48:24 BRST 2016 : Comentário: null  comentario Linha: 7
+Fri Oct 21 22:47:12 BRST 2016 : Comentário: null  comentario Linha: 7
+Fri Oct 21 22:47:12 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Sun Oct 23 21:06:03 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:06:03 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
+Sun Oct 23 21:06:39 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:21:37 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:34:19 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:40:52 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:41:20 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:54:55 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 21:58:55 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 22:01:35 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 22:06:33 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 22:12:17 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 22:40:34 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 22:42:49 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 22:59:16 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:01:24 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:03:01 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:04:20 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:04:21 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Sun Oct 23 23:05:58 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:12:25 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:21:53 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:27:21 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:28:14 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:30:02 BRST 2016 : Comentário: null  comentario Linha: 5
+Sun Oct 23 23:30:03 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 12
+Sun Oct 23 23:30:14 BRST 2016 : Comentário: null  comentario Linha: 5
+Sun Oct 23 23:30:15 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 12
+Sun Oct 23 23:30:19 BRST 2016 : Comentário: null  comentario Linha: 5
+Sun Oct 23 23:30:20 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 12
+Sun Oct 23 23:34:02 BRST 2016 : Nenhum arquivo selecionado
+Sun Oct 23 23:34:06 BRST 2016 : Nenhum arquivo selecionado
+Sun Oct 23 23:34:08 BRST 2016 : null
+Sun Oct 23 23:35:45 BRST 2016 : null
+Sun Oct 23 23:35:48 BRST 2016 : Nenhum arquivo selecionado
+Sun Oct 23 23:35:52 BRST 2016 : null
+Sun Oct 23 23:44:27 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:45:09 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:45:36 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:47:34 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:47:41 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:47:42 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Sun Oct 23 23:47:55 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:54:02 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:54:11 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:54:12 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Sun Oct 23 23:54:29 BRST 2016 : Nenhum arquivo selecionado
+Sun Oct 23 23:55:43 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:55:50 BRST 2016 : Comentário: null  comentario Linha: 7
+Sun Oct 23 23:55:51 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Sun Oct 23 23:58:10 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:03:38 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:03:38 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Mon Oct 24 00:09:45 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:09:54 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:09:55 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Mon Oct 24 00:10:00 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:10:01 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Mon Oct 24 00:10:05 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:10:06 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 14
+Mon Oct 24 00:14:37 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:14:54 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:14:55 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Mon Oct 24 00:15:21 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:15:32 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:19:08 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:19:18 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:19:19 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 15
+Mon Oct 24 00:25:48 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:28:42 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:29:11 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:29:21 BRST 2016 : Comentário: null  comentario Linha: 7
+Mon Oct 24 00:29:22 BRST 2016 : Comentário de Bloco: null§ comentario ese é um comentário de 
+        bloco Linhas: 16
