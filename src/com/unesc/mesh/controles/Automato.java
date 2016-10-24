@@ -401,7 +401,7 @@ public class Automato {
      =========== Funções Sintático  ===========
      ==========================================
      */
-    List<Tokens> getListaTokens() {
+    public List<Tokens> getListaTokens() {
         if (listTokensTerminaisEncontrados != null) {
             return this.listTokensTerminaisEncontrados;
         } else {

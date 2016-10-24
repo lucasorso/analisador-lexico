@@ -29,7 +29,7 @@ public class Sintatico {
     private HashMap<String, Integer> terminais = new HashMap<String, Integer>();
     private HashMap<String, Integer> naoTerminais = new HashMap<String, Integer>();
     private List<List<Integer>> gramatica = new ArrayList<List<Integer>>();
-    private final List<Tokens> listTokensEncotrados;
+    private List<Tokens> listTokensEncotrados;
     private final Stack<Integer> pilha = new Stack<Integer>();
     private final TabelaParsing tabParsing;
     
@@ -49,11 +49,10 @@ public class Sintatico {
     }
     
     
-    public void analisadorSintatico(JTextArea area) throws RuntimeException{
-        i++;
+    public void analisadorSintatico(JTextArea area, Tokens token) throws RuntimeException{
         x = pilha.peek();
-        if (listTokensEncotrados.get(i) != null){
-            a = listTokensEncotrados.get(i).getChave();    
+        if (token.getValor() != null){
+            a = token.getChave();
         }
         while (x != 54) {
             /*
@@ -77,7 +76,7 @@ public class Sintatico {
                 if (x == a) {
                     pilha.pop();
                     System.out.println("Saia do Repita !");
-                    analisadorSintatico(area);
+                    break;
                 } else {
                     System.out.println("ERRO !");
                     area.append("ERRO : " + pilha.toString());

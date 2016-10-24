@@ -97,7 +97,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="topo_jPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -106,7 +106,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -200,12 +200,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="codigo_jScrollPane" alignment="0" pref="1124" max="32767" attributes="0"/>
+              <Component id="codigo_jScrollPane" alignment="0" pref="1130" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="codigo_jScrollPane" alignment="1" max="32767" attributes="0"/>
+              <Component id="codigo_jScrollPane" alignment="1" pref="360" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -245,7 +245,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="token_jScrollPane" alignment="1" pref="453" max="32767" attributes="0"/>
+              <Component id="token_jScrollPane" alignment="1" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -315,7 +315,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="193" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="0" pref="142" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
