@@ -36,7 +36,7 @@ array 22
 { 35
 _string 36
 _numint 37
-_numfloat 39
+_numfloat 38
 _literal 39
 _identificador 40
 _char 41

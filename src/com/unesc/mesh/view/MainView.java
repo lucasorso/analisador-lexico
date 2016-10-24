@@ -146,7 +146,7 @@ public class MainView extends javax.swing.JFrame {
 
         codigo_jTextArea.setColumns(20);
         codigo_jTextArea.setRows(5);
-        codigo_jTextArea.setText("inicio_programa{\n    int _i;\n\n    _i := 1;\n\n    for (;_i < 10; _i ++){\n        § comentario\n\n        while (){\n\n        }\n        erro heuheueh\n    }\n\n    # ese é um comentário de \n        bloco #\n\n    escreve(¬Este é um literal¬);\n}");
+        codigo_jTextArea.setText("inicio_programa{\n\tvoid _gato {\n\t\tdeclaravariaveis int _testeInt;\n\t\tinicio_corpo\n\t\t\tescreve(\"Teste\")\n\t\tfim_corpo\n\t\treturn 0;\n\t};\n\tconstante _tesouro = 80;\n\tdeclaravariaveis float _testeFloat;\n}");
         codigo_jScrollPane.setViewportView(codigo_jTextArea);
 
         javax.swing.GroupLayout codigo_jPanelLayout = new javax.swing.GroupLayout(codigo_jPanel);

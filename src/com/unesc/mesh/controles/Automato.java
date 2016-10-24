@@ -278,7 +278,11 @@ public class Automato {
                 geraToken("_numfloat", recuperaLinha(posicaoAtual), numeroFloat);
             } else if (objNumber instanceof Integer) {
                 numeroInteiro = Integer.parseInt(objNumber.toString());
-                geraToken("_numint", recuperaLinha(posicaoAtual), numeroInteiro);
+                if (numeroInteiro == 0){
+                    geraToken("0", recuperaLinha(posicaoAtual), objNumber.toString());
+                } else {
+                    geraToken("_numint", recuperaLinha(posicaoAtual), numeroInteiro);
+                }
             }
         } else {
             geraTokenDesconhecido(recuperaLinha(posicaoAtual), posicaoAtual);
