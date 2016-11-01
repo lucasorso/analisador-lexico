@@ -8,6 +8,7 @@ int 6
 inicio_programa 7
 inicio_corpo 8
 if 9
+£ 10
 for 11
 float 12
 fim_corpo 13

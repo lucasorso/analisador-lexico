@@ -51,8 +51,8 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         NumeroLinha getNumeroLinha = new NumeroLinha(this.codigo_jTextArea);
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
-//        adicionarTokens();
-//        adicionarNaoTerminais();
+        codigo_jTextArea.setTabSize(4);
+        
     }
 
     /**
@@ -300,9 +300,7 @@ public class MainView extends javax.swing.JFrame {
     private void abrir_jMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrir_jMenuItemActionPerformed
         try {
             abrirArquivo();
-        } catch (NullPointerException ex) {
-            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (NullPointerException | IOException ex) {
             Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_abrir_jMenuItemActionPerformed

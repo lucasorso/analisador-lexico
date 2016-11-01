@@ -32,17 +32,15 @@ public class Sintatico {
     private List<Tokens> listTokensEncotrados;
     private final Stack<Integer> pilha = new Stack<Integer>();
     private final TabelaParsing tabParsing;
+    ArquivosUtil arqUtil = new ArquivosUtil();
 
     public Sintatico(Automato automato) {
-        ArquivosUtil arqUtil = new ArquivosUtil();
+        
         this.terminais = arqUtil.adicionarHashMapTokens();
         this.listTokensEncotrados = automato.getListaTokens();
         this.tabParsing = new TabelaParsing();
         this.naoTerminais = arqUtil.adicionarNaoTerminais();
         this.gramatica = arqUtil.adicionarRegrasGramatica();
-//        List<Integer> pilhaInicio = new ArrayList<>();
-//        pilhaInicio = gramatica.get(INICIO_PILHA);
-//        Collections.reverse(pilhaInicio);
         pilha.add(FINAL_DE_ARQUIVO);
         pilha.add(INICIO_PROGRMA);
     }
@@ -70,21 +68,23 @@ public class Sintatico {
                     return true;
                 } else {
                     System.out.println("ERRO !");
-                    area.append("\nErro sintâtico Linha : " + token.getLinha());
+                    area.append("\nErro sintático Linha : " + token.getLinha());
                     return false;
 //                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
                 }
-            } else if (tabParsing.contemRegra(x, a)) {
+            } else if (tabParsing.contemRegra(x, a) || tabParsing.getRegra(x, a) != 0) {
                 pilha.pop();
                 System.out.println("Regra tabela de parsing: " + tabParsing.getRegra(x, a));
                 area.append("Regra tabela de parsing: " + tabParsing.getRegra(x, a) + "\n");
-                List<Integer> conteudo = gramatica.get(tabParsing.getRegra(x, a) -1);
+                List<Integer> conteudo = new ArrayList<>();
+                conteudo = gramatica.get(tabParsing.getRegra(x, a) -1);
                 Collections.reverse(conteudo);
                 pilha.addAll(conteudo);
                 x = pilha.peek();
+                gramatica = arqUtil.adicionarRegrasGramatica();
             } else {
                 System.out.println("ERRO !");
-                area.append("\nErro sintâtico Linha : " + token.getLinha());
+                area.append("\nErro sintático Linha : " + token.getLinha());
                 return false;
 //                throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
             }
