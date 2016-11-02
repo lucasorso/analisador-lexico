@@ -70,7 +70,7 @@ public class Sintatico {
                     return true;
                 } else {
                     System.out.println("ERRO !");
-                    area.append("\nErro sintâtico Linha : " + token.getLinha());
+                    area.append("\nErro sintático Linha : " + token.getLinha());
                     return false;
 //                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
                 }
@@ -84,7 +84,7 @@ public class Sintatico {
                 x = pilha.peek();
             } else {
                 System.out.println("ERRO !");
-                area.append("\nErro sintâtico Linha : " + token.getLinha());
+                area.append("\nErro sintático Linha : " + token.getLinha());
                 return false;
 //                throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
             }
