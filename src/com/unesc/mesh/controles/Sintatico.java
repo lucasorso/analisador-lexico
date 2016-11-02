@@ -32,17 +32,15 @@ public class Sintatico {
     private List<Tokens> listTokensEncotrados;
     private final Stack<Integer> pilha = new Stack<Integer>();
     private final TabelaParsing tabParsing;
+    ArquivosUtil arqUtil = new ArquivosUtil();
 
     public Sintatico(Automato automato) {
-        ArquivosUtil arqUtil = new ArquivosUtil();
+        
         this.terminais = arqUtil.adicionarHashMapTokens();
         this.listTokensEncotrados = automato.getListaTokens();
         this.tabParsing = new TabelaParsing();
         this.naoTerminais = arqUtil.adicionarNaoTerminais();
         this.gramatica = arqUtil.adicionarRegrasGramatica();
-//        List<Integer> pilhaInicio = new ArrayList<>();
-//        pilhaInicio = gramatica.get(INICIO_PILHA);
-//        Collections.reverse(pilhaInicio);
         pilha.add(FINAL_DE_ARQUIVO);
         pilha.add(INICIO_PROGRMA);
         /*Adicionado for each para reverter minha das gramaticas*/
@@ -80,7 +78,7 @@ public class Sintatico {
                     return false;
 //                    throw new RuntimeException("Exception do CARAMBA!  Não funciona!");
                 }
-            } else if (tabParsing.contemRegra(x, a)) {
+            } else if (tabParsing.contemRegra(x, a) || tabParsing.getRegra(x, a) != 0) {
                 pilha.pop();
                 System.out.println("Regra tabela de parsing: " + tabParsing.getRegra(x, a));
                 area.append("Regra tabela de parsing: " + tabParsing.getRegra(x, a) + "\n");
