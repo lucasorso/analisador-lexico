@@ -45,6 +45,12 @@ public class Sintatico {
 //        Collections.reverse(pilhaInicio);
         pilha.add(FINAL_DE_ARQUIVO);
         pilha.add(INICIO_PROGRMA);
+        /*Adicionado for each para reverter minha das gramaticas*/
+        gramatica.stream().forEach((conteudo) -> {
+            System.out.println(conteudo.toString());
+            Collections.reverse(conteudo);
+            System.out.println(conteudo.toString());
+        });
     }
 
     public boolean analisadorSintatico(JTextArea area, Tokens token) throws RuntimeException {
@@ -78,9 +84,8 @@ public class Sintatico {
                 pilha.pop();
                 System.out.println("Regra tabela de parsing: " + tabParsing.getRegra(x, a));
                 area.append("Regra tabela de parsing: " + tabParsing.getRegra(x, a) + "\n");
-                List<Integer> conteudo = gramatica.get(tabParsing.getRegra(x, a) -1);
-                Collections.reverse(conteudo);
-                pilha.addAll(conteudo);
+                List<Integer> regra = gramatica.get(tabParsing.getRegra(x, a) -1);
+                pilha.addAll(regra);
                 x = pilha.peek();
             } else {
                 System.out.println("ERRO !");
