@@ -53,8 +53,6 @@ public class MainView extends javax.swing.JFrame {
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
         codigo_jTextArea.setTabSize(4);
         
-//        adicionarTokens();
-//        adicionarNaoTerminais();
     }
 
     /**
