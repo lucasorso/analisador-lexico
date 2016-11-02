@@ -88,7 +88,6 @@ public class MainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mesh Compiler");
-        setEnabled(false);
         setExtendedState(MAXIMIZED_BOTH);
 
         analisar_JButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/unesc/mesh/icons/application_osx_terminal.png"))); // NOI18N

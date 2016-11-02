@@ -85,7 +85,6 @@ public class Sintatico {
                 List<Integer> regra = gramatica.get(tabParsing.getRegra(x, a) -1);
                 pilha.addAll(regra);
                 x = pilha.peek();
-                gramatica = arqUtil.adicionarRegrasGramatica();
             } else {
                 System.out.println("ERRO !");
                 area.append("\nErro sintático Linha : " + token.getLinha());
