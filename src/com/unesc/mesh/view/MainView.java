@@ -51,6 +51,7 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         NumeroLinha getNumeroLinha = new NumeroLinha(this.codigo_jTextArea);
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
+        codigo_jTextArea.setTabSize(4);
 //        adicionarTokens();
 //        adicionarNaoTerminais();
     }
