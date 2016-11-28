@@ -11,6 +11,7 @@ import com.unesc.mesh.controles.Log;
 import com.unesc.mesh.controles.NumeroLinha;
 import com.unesc.mesh.controles.Sintatico;
 import com.unesc.mesh.controles.Tokens;
+import com.unesc.mesh.exception.SemanticoException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -346,7 +347,11 @@ public class MainView extends javax.swing.JFrame {
         DefaultTableModel modeloTable;
         modeloTable = (DefaultTableModel) token_jTable.getModel();
         modeloTable.getDataVector().removeAllElements();
-        analisarCodigo();
+        try {
+            analisarCodigo();
+        } catch (SemanticoException ex) {
+            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_analisar_JButtonActionPerformed
 
     private void salvar_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvar_jButtonActionPerformed
@@ -447,22 +452,23 @@ public class MainView extends javax.swing.JFrame {
         }
     }
 
-    private void analisarCodigo() {
+    private void analisarCodigo() throws SemanticoException {
         areaSintatico.setText(" ");
         //Passando Hash Map
         Automato automato = new Automato(codigo_jTextArea.getText(), token_jTable);
         Sintatico sintatio = new Sintatico(automato);
         try {
-            List<Tokens> listTokensEncontrados = automato.getListaTokens();
+//            List<Tokens> listTokensEncontrados = automato.getListaTokens();
             for (Tokens t : automato.getListaTokens()){
                 if (sintatio.analisadorSintatico(areaSintatico, t)){
                     continue;
                 } else {
-                    return;
+                    break;
                 }
             }
-        } catch (RuntimeException ex) {
+        } catch (Exception ex) {
             System.out.println("\nErro " + ex.getMessage());
+            // Aqui vai lançar exeção de semântica.
         }
     }
 

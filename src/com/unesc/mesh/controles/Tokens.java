@@ -50,8 +50,6 @@ public class Tokens {
         this.linha = linha;
     }
     
-    
-
     @Override
     public String toString() {
         return "Tokens{" + "chave=" + codigo + ", valor=" + valor + '}';

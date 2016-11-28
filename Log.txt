@@ -770,3 +770,7 @@ Mon Oct 31 20:39:54 BRST 2016 : Comentário de Bloco: nullvoid _gato {
 		fim_corpo
 		return _a;
 	}; Linhas: 8
+Wed Nov 02 14:51:25 BRST 2016 : Comentário de Bloco: nullfor(int _i = 1; _i < 10; _i++) {
+			escreve(_i)
+	} Linhas: 14
+Sun Nov 27 15:13:44 BRST 2016 : Nenhum arquivo selecionado

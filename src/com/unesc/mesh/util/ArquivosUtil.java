@@ -63,9 +63,9 @@ public class ArquivosUtil {
         return hashMapTokens;
     }
 
-    public HashMap<String, Integer> adicionarNaoTerminais(){
+    public HashMap<Integer, String> adicionarNaoTerminais(){
 
-        HashMap<String, Integer> hashMapNaoTerminais = new HashMap<String, Integer>();
+        HashMap<Integer, String> hashMapNaoTerminais = new HashMap<>();
         try {
             File file = new File(getClass().getResource("../arquivos/naoTerminaisCodificados.txt").getFile());
             FileReader fileReader = new FileReader(file.getAbsoluteFile());
@@ -74,7 +74,7 @@ public class ArquivosUtil {
                 String linha = bufferedReader.readLine();
                 String[] valor;
                 valor = linha.split(" "); //separa por espaço número e palavra
-                hashMapNaoTerminais.put(valor[1].toString(), Integer.parseInt(valor[0])); // adiciona no ashMap
+                hashMapNaoTerminais.put(Integer.parseInt(valor[0]), valor[1]); // adiciona no ashMap
             }
         } catch (FileNotFoundException ex) {
             System.out.println("ArquivoUtil.java -> Erro ao abrir arquivo : " + ex.getMessage());
