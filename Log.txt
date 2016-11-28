@@ -774,3 +774,22 @@ Wed Nov 02 14:51:25 BRST 2016 : Comentário de Bloco: nullfor(int _i = 1; _i < 1
 			escreve(_i)
 	} Linhas: 14
 Sun Nov 27 15:13:44 BRST 2016 : Nenhum arquivo selecionado
+Mon Nov 28 21:14:50 BRST 2016 : Comentário de Bloco: nulldeclaravariaveis float _a;
+	inicio_corpo
+	fim_corpo
+} Linhas: 6
+Mon Nov 28 21:14:54 BRST 2016 : Comentário de Bloco: nulldeclaravariaveis int _a; Linhas: 3
+Mon Nov 28 21:15:01 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:01 BRST 2016 : Comentário de Bloco: null§declaravariaveis int _a;declaravariaveis float _a;
+	inicio_corpo
+	fim_corpo
+} Linhas: 6
+Mon Nov 28 21:15:10 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:10 BRST 2016 : Comentário: null declaravariaveis int _a; declaravariaveis float _a; Linha: 3
+Mon Nov 28 21:15:22 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:28 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:34 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:42 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:43 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:48 BRST 2016 : Comentário: null declaravariaveis int _a; Linha: 2
+Mon Nov 28 21:15:48 BRST 2016 : Comentário: null declaravariaveis int _a; int _b; Linha: 3
