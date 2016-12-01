@@ -47,7 +47,7 @@ public class Semantico {
             case REGRA_100:
                 /* Validação de constantes com o mesmo nome */
                 tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
-                //tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
+                tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
                 if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
                     /* encontrou uma constante com o mesmo nome */
                     if (tabelaSemantica.getTipos().contains(retornaTipo(tokenTipo.getCodigo()))){
