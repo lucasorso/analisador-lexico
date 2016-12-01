@@ -221,7 +221,7 @@ public class TabelaParsing {
                 if (tabParsing[linha][coluna] == null){
                     continue;
                 }
-                strb.append("Linha:[ " + linha+ " ]" + " Coluna:[ " + coluna + " ]" + " = " + tabParsing[linha][coluna] + "\n");
+                strb.append("Linha:[ ").append(linha).append(" ] Coluna:[ ").append(coluna).append(" ] = ").append(tabParsing[linha][coluna]).append("\n");
             }
         }
         return strb.toString();

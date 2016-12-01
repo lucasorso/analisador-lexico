@@ -6,6 +6,8 @@
 package com.unesc.mesh.controles;
 
 import com.unesc.mesh.util.RegraSemantica;
+import com.unesc.mesh.view.MainView;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author LucasOrso
@@ -23,45 +25,74 @@ public class Semantico {
     /*Categorias*/
     private static final String VARIAVEL = "Variável";
     private static final String CONSTANTE = "Constante";
-
+    
     public static boolean mStatus = false;
     private final TabelaSemantica tabelaSemantica;
-    private Tokens ultimoToken;
+    private final Automato automato;
+    public static String erroSemantico;
 
     /**
-     * @TabelaSemantica
-     *
+     * @param automato
+     * Contêm todos sos tokens encontrados na analise léxica
      */
-    public Semantico() {
+    public Semantico(Automato automato) {
         tabelaSemantica = new TabelaSemantica();
+        this.automato = automato;
     }
     
     public void getRegra(int aRegra, Tokens token, TokenNaoTerminal naoTerminal) {
-        String identificador = null;
-        Integer codigo = null;
+        Tokens tokenVar;
+        Tokens tokenTipo;
         switch (RegraSemantica.getRegraSemantica(aRegra)) {
             case REGRA_100:
-                /*100 Variáveis com o mesmo nome*/
-                identificador = token.getValor();
-                codigo = token.getCodigo();
-                if (tabelaSemantica.getNomesVariaveis().contains(identificador)) {
-                    /*se entrou no if é porque já existe uma var declarada*/
-                    setErroSemantico(true);
+                /* Validação de constantes com o mesmo nome */
+                tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                //tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
+                if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
+                    /* encontrou uma constante com o mesmo nome */
+                    if (tabelaSemantica.getTipos().contains(retornaTipo(tokenTipo.getCodigo()))){
+                        /* encontrou uma constante o mesmo nome e tipo */
+                        seStatusSemantico(true);
+                        setErroSemantico("Erro, constante : " + tokenVar.getValor() + " do tipo " +
+                                tokenTipo.getValor() + " na linha " + tokenVar.getLinha());
+                    }
                 } else {
-                    /*caso não tenha então é adicionado a tabela*/
-                    tabelaSemantica.addDados(identificador, retornaTipo(codigo), retornaCategoria(naoTerminal.getCodigo()));
+                    /* se não encontrou adiciona na tabela */
+                    tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                    tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
+                    tabelaSemantica.addDados(tokenVar.getValor(), retornaTipo(tokenTipo.getCodigo()), naoTerminal.getValor());
+                    populaTabela(tokenVar.getValor(), retornaTipo(tokenTipo.getCodigo()), naoTerminal.getValor());   
                 }
                 break;
             case REGRA_110:
                 /*110 Variáveis não declaradas*/
-                identificador = token.getValor();
-                if (!tabelaSemantica.getNomesVariaveis().contains(identificador)) {
-                    setErroSemantico(true);
-                }
+//                identificador = token.getValor();
+//                for (TabelaSemantica ts : tabelaSemantica) {
+//                    if (!ts.getNomesVariaveis().contains(identificador)) {
+//                        /*se entrou no if é porque já existe uma var declarada*/
+//                        setErroSemantico(false);
+//                    }
+//                }
                 break;
             case REGRA_120:
-                /*120 uso de variavel inteira em operação aritmética*/
-                identificador = token.getValor();
+                /* Validação de variáveis com o mesmo nome */
+                tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                //tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
+                if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
+                    /* encontrou uma variável com o mesmo nome */
+                    //if (tabelaSemantica.getTipos().contains(retornaTipo(tokenTipo.getCodigo()))){
+                        /* encontrou uma variável o mesmo nome e tipo */
+                        seStatusSemantico(true);
+                        setErroSemantico("Erro, variável : " + tokenVar.getValor() + " na linha " + tokenVar.getLinha());
+                    //}
+                } else {
+                    /* se não encontrou adiciona na tabela */
+                    tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                    //tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
+                    tabelaSemantica.addDados(tokenVar.getValor(), retornaTipo(tokenVar.getCodigo()), naoTerminal.getValor());
+                    populaTabela(tokenVar.getValor(), retornaTipo(tokenVar.getCodigo()), naoTerminal.getValor());   
+                }
+                
                 
                 break;
             case REGRA_130:
@@ -81,11 +112,19 @@ public class Semantico {
         }
     }
     
+    private void setErroSemantico(String aErro){
+        erroSemantico = aErro != null ? aErro : "Erro semântico desconhecido";
+    }
+    
+    public static String getErroSemantico(){
+        return erroSemantico;
+    }
+    
     public boolean getStatusSemantico() {
         return mStatus;
     }
-
-    public void setErroSemantico(boolean mStatus) {
+    
+    public void seStatusSemantico(boolean mStatus) {
         Semantico.mStatus = mStatus;
     }
     
@@ -107,13 +146,10 @@ public class Semantico {
         return null;
     }
     
-    private String retornaCategoria(int aCodigo){
-        switch (aCodigo) {
-            case 60:
-                return VARIAVEL;
-            case 61:
-                return CONSTANTE;
-        }
-        return null;
+    /* Popula a tabela */
+    private void populaTabela(String aVariavel, String aTipo, String aCategoria) {
+        DefaultTableModel modeloTable;
+        modeloTable = (DefaultTableModel) MainView.semantico_jTable1.getModel();
+        modeloTable.addRow(new Object[]{aVariavel, aTipo, aCategoria});   
     }
 }

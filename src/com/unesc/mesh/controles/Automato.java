@@ -405,6 +405,10 @@ public class Automato {
      =========== Funções Sintático  ===========
      ==========================================
      */
+    public Tokens getTokenPosicao(int posicao){
+        return listTokensTerminaisEncontrados.get(posicao);
+
+    }
     public List<Tokens> getListaTokens() {
         if (listTokensTerminaisEncontrados != null) {
             return this.listTokensTerminaisEncontrados;
