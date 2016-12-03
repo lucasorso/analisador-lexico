@@ -1,19 +1,15 @@
 inicio_programa{
-    int _i;
-
-    _i := 1;
-
-    for (;_i < 10; _i ++){
-        § comentario
-
-        while (){
-
-        }
-        erro heuheueh
-    }
-
-    # ese é um comentário de 
-        bloco #
-
-    escreve(¬Este é um literal¬);
+	void _calculaArea (int _a, int _b) {
+		declaravariaveis int _totalArea;
+            inicio_corpo
+            
+            fim_corpo
+   	};
+        
+	constante _CONST = 10;  _CONST  = 90;
+	declaravariaveis float _diametro,  _total;
+	
+	inicio_corpo
+	
+	fim_corpo 
 }
