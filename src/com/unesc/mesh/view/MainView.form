@@ -239,7 +239,7 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="inicio_programa{&#xa;&#x9;void _gato {&#xa;&#x9;&#x9;declaravariaveis int _testeInt;&#xa;&#x9;&#x9;inicio_corpo&#xa;&#x9;&#x9;&#x9;escreve(&quot;Teste&quot;)&#xa;&#x9;&#x9;fim_corpo&#xa;&#x9;&#x9;return 0;&#xa;&#x9;};&#xa;&#x9;constante _tesouro = 80;&#xa;&#x9;declaravariaveis float _testeFloat;&#xa;}"/>
+                <Property name="text" type="java.lang.String" value="inicio_programa{&#xa;      void _calculaArea (int _a, int _b) {&#xa;      declaravariaveis int _totalArea;&#xa;             inicio_corpo&#xa;            &#xa;             fim_corpo&#xa;      };&#xa;        &#xa;      constante _CONST = 10;  _CONSTA = 90;&#xa;      declaravariaveis float _diametro,  _total;&#xa;      &#xa;      inicio_corpo&#xa;      &#xa;      fim_corpo &#xa;}"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -35,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainView extends javax.swing.JFrame {
 
-    private final Arquivo arq = new Arquivo();
+    private Arquivo arq = new Arquivo();
     private String codigo = "";
     private File file = null;
 
@@ -52,7 +51,7 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         NumeroLinha getNumeroLinha = new NumeroLinha(this.codigo_jTextArea);
         codigo_jScrollPane.setRowHeaderView(getNumeroLinha);
-        codigo_jTextArea.setTabSize(4);
+        codigo_jTextArea.setTabSize(2);
         
     }
 
@@ -151,7 +150,7 @@ public class MainView extends javax.swing.JFrame {
 
         codigo_jTextArea.setColumns(20);
         codigo_jTextArea.setRows(5);
-        codigo_jTextArea.setText("inicio_programa{\n\tvoid _gato {\n\t\tdeclaravariaveis int _testeInt;\n\t\tinicio_corpo\n\t\t\tescreve(\"Teste\")\n\t\tfim_corpo\n\t\treturn 0;\n\t};\n\tconstante _tesouro = 80;\n\tdeclaravariaveis float _testeFloat;\n}");
+        codigo_jTextArea.setText("inicio_programa{\n      void _calculaArea (int _a, int _b) {\n      declaravariaveis int _totalArea;\n             inicio_corpo\n            \n             fim_corpo\n      };\n        \n      constante _CONST = 10;  _CONSTA = 90;\n      declaravariaveis float _diametro,  _total;\n      \n      inicio_corpo\n      \n      fim_corpo \n}");
         codigo_jScrollPane.setViewportView(codigo_jTextArea);
 
         javax.swing.GroupLayout codigo_jPanelLayout = new javax.swing.GroupLayout(codigo_jPanel);
@@ -389,9 +388,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_abrir_jButtonActionPerformed
 
     private void analisar_JButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analisar_JButtonActionPerformed
-        DefaultTableModel modeloTable;
-        modeloTable = (DefaultTableModel) token_jTable.getModel();
-        modeloTable.getDataVector().removeAllElements();
+        limpaTabelas();
         try {
             analisarCodigo();
         } catch (SemanticoException ex) {
@@ -569,6 +566,18 @@ public class MainView extends javax.swing.JFrame {
 
     private void limparCampo() {
         codigo_jTextArea.setText("");
+    }
+    
+    private void limpaTabelas(){
+        /* Recupera referência da tabela de lexicos*/
+        DefaultTableModel tabelaLexico;
+        tabelaLexico = (DefaultTableModel) token_jTable.getModel();
+        tabelaLexico.getDataVector().removeAllElements();
+        
+        /* Recupera referência da tabela de semanticos*/
+        DefaultTableModel tabelaSemantico;
+        tabelaSemantico = (DefaultTableModel) semantico_jTable1.getModel();
+        tabelaSemantico.getDataVector().removeAllElements();
     }
 
     private void imprimeHashs() {

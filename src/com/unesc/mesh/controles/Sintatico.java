@@ -23,20 +23,18 @@ public class Sintatico {
     private int a;
     public static int FINAL_DE_ARQUIVO = 54;
     public static int INICIO_PROGRMA = 58;
-    private final HashMap<String, Integer> terminais;
-    private final HashMap<Integer, String> naoTerminais;
-    private final List<List<Integer>> gramatica;
-    private final Stack<Integer> pilha;
-    private final TabelaParsing tabParsing;
-    private final Semantico semantico;
+    private HashMap<String, Integer> terminais;
+    private HashMap<Integer, String> naoTerminais;
+    private List<List<Integer>> gramatica;
+    private Stack<Integer> pilha;
+    private TabelaParsing tabParsing;
+    private Semantico semantico;
     private ArquivosUtil arqUtil;
     private String naoTerminalAtual;
-    private final List<TokenNaoTerminal> listNaoTerminaisEncontrados;
     private TokenNaoTerminal tokenNaoTerminal;
     private Automato automato;
     
     public Sintatico(Automato automato) {
-        listNaoTerminaisEncontrados = new ArrayList<>();
         arqUtil = new ArquivosUtil();
         this.pilha = new Stack<>();
         this.semantico = new Semantico(automato);
@@ -91,10 +89,9 @@ public class Sintatico {
                 pilha.pop();
                 semantico.getRegra(x, token, tokenNaoTerminal);
                 if(semantico.getStatusSemantico()){
-                    //System.out.println("ERRO !");
-                    //area.append("\nErro Semântico Linha : " + token.getLinha());
-                    String erroSemantico = Semantico.getErroSemantico();
+                    String erroSemantico = semantico.getErroSemantico();
                     area.append(erroSemantico);
+                    System.out.println(erroSemantico);
                     return false;
                 }
                 x = pilha.peek();
@@ -108,7 +105,6 @@ public class Sintatico {
                 if (naoTerminais.containsKey(x)){
                     naoTerminalAtual = naoTerminais.get(x);
                     tokenNaoTerminal = new TokenNaoTerminal(x, naoTerminalAtual);
-                    listNaoTerminaisEncontrados.add(tokenNaoTerminal);
                 }
                 x = pilha.peek();
             } else {

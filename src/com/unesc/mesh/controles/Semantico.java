@@ -7,6 +7,8 @@ package com.unesc.mesh.controles;
 
 import com.unesc.mesh.util.RegraSemantica;
 import com.unesc.mesh.view.MainView;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -15,99 +17,153 @@ import javax.swing.table.DefaultTableModel;
 public class Semantico {
     
      /*Tipos*/
-    private static final String STRING = "String";
-    private static final String INT = "Int";
-    private static final String FLOAT = "Float";
-    private static final String LITERAL = "Literal";
-    private static final String IDENTIFICADOR = "Identificador";
-    private static final String CHAR = "Char";
+    private static final String STRING = "string";
+    private static final String INT = "int";
+    private static final String FLOAT = "float";
+    private static final String LITERAL = "literal";
+    private static final String IDENTIFICADOR = "identificador";
+    private static final String CHAR = "char";
     
     /*Categorias*/
-    private static final String VARIAVEL = "Variável";
+    private static final String VARIAVEL = "Variavel";
     private static final String CONSTANTE = "Constante";
+    private static final String FUNCAO = "Função";
     
-    public static boolean mStatus = false;
-    private final TabelaSemantica tabelaSemantica;
-    private final Automato automato;
-    public static String erroSemantico;
-
+    /*Variáveis de classe*/
+    public boolean mStatus = false;
+    private TabelaSemantica tabelaSemantica;
+    private Automato automato;
+    public String erroSemantico;
+    private List<TokenNaoTerminal> listNaoTerminaisEncontrados;
+    String tipoAtual;
+    
     /**
      * @param automato
      * Contêm todos sos tokens encontrados na analise léxica
      */
     public Semantico(Automato automato) {
         tabelaSemantica = new TabelaSemantica();
+        listNaoTerminaisEncontrados = new ArrayList<>();
         this.automato = automato;
     }
     
     public void getRegra(int aRegra, Tokens token, TokenNaoTerminal naoTerminal) {
         Tokens tokenVar;
         Tokens tokenTipo;
+        listNaoTerminaisEncontrados.add(naoTerminal);
         switch (RegraSemantica.getRegraSemantica(aRegra)) {
             case REGRA_100:
-                /* Validação de constantes com o mesmo nome */
+                /**
+                 *  TUDO OK NA REGRA DE CONSTANTES
+                 *
+                 * Validação de constantes com o mesmo nome */
                 tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
                 tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
+                
                 if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
                     /* encontrou uma constante com o mesmo nome */
                     if (tabelaSemantica.getTipos().contains(retornaTipo(tokenTipo.getCodigo()))){
                         /* encontrou uma constante o mesmo nome e tipo */
-                        seStatusSemantico(true);
-                        setErroSemantico("Erro, constante : " + tokenVar.getValor() + " do tipo " +
-                                tokenTipo.getValor() + " na linha " + tokenVar.getLinha());
+                        setStatusSemantico(true);
+                        setErroSemantico("Erro, Variavel : " + tokenVar.getValor() + " do tipo " +
+                                retornaTipo(tokenTipo.getCodigo()) + " na linha " + tokenVar.getLinha());
                     }
                 } else {
                     /* se não encontrou adiciona na tabela */
-                    tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
-                    tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
-                    tabelaSemantica.addDados(tokenVar.getValor(), retornaTipo(tokenTipo.getCodigo()), naoTerminal.getValor());
-                    populaTabela(tokenVar.getValor(), retornaTipo(tokenTipo.getCodigo()), naoTerminal.getValor());   
+                    tabelaSemantica.addDados(tokenVar.getValor(), retornaTipo(tokenTipo.getCodigo()), retornaCategoria(aRegra, naoTerminal.getCodigo()));
+                    populaTabela(tokenVar.getValor(), retornaTipo(tokenTipo.getCodigo()), retornaCategoria(aRegra, naoTerminal.getCodigo()));   
                 }
                 break;
             case REGRA_110:
-                /*110 Variáveis não declaradas*/
-//                identificador = token.getValor();
-//                for (TabelaSemantica ts : tabelaSemantica) {
-//                    if (!ts.getNomesVariaveis().contains(identificador)) {
-//                        /*se entrou no if é porque já existe uma var declarada*/
-//                        setErroSemantico(false);
-//                    }
-//                }
-                break;
-            case REGRA_120:
-                /* Validação de variáveis com o mesmo nome */
+                /**
+                 *  TUDO OK NA REGRA DE ENCRONTRAR VARIAVEIS
+                 * 
+                 * Uso de variáveis não declaradas */
                 tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
                 //tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
-                if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
-                    /* encontrou uma variável com o mesmo nome */
-                    //if (tabelaSemantica.getTipos().contains(retornaTipo(tokenTipo.getCodigo()))){
-                        /* encontrou uma variável o mesmo nome e tipo */
-                        seStatusSemantico(true);
-                        setErroSemantico("Erro, variável : " + tokenVar.getValor() + " na linha " + tokenVar.getLinha());
-                    //}
-                } else {
-                    /* se não encontrou adiciona na tabela */
-                    tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
-                    //tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
-                    tabelaSemantica.addDados(tokenVar.getValor(), retornaTipo(tokenVar.getCodigo()), naoTerminal.getValor());
-                    populaTabela(tokenVar.getValor(), retornaTipo(tokenVar.getCodigo()), naoTerminal.getValor());   
+                
+                if (!tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
+                    setStatusSemantico(true);
+                    setErroSemantico("Erro, Variável : "  + tokenVar.getValor()  + " não encontrada na talbela Semântica");
                 }
                 
+                break;
+            case REGRA_120:
+                /*
+                 *  TUDO OK NA REGRA DE VARIAVEIS
+                 *
+                 * Validação de variáveis com o mesmo nome */
+                tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -2);
                 
+                if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
+                    /* encontrou uma variável com o mesmo nome */
+                    if (tabelaSemantica.getTipos().contains(tipoAtual)){
+                        /* encontrou uma variável o mesmo nome e tipo */
+                        setStatusSemantico(true);
+                        setErroSemantico("Erro, Variavel : " + tokenVar.getValor() + " do tipo " +
+                                tipoAtual + " na linha " + tokenVar.getLinha());
+                    }
+                } else {
+                    /* se não encontrou adiciona na tabela */
+                    if (naoTerminal.getCodigo() == 67 || naoTerminal.getCodigo() == 69){
+                        tipoAtual = tokenTipo.getValor();
+                    }
+                    tabelaSemantica.addDados(tokenVar.getValor(), tipoAtual, retornaCategoria(aRegra, naoTerminal.getCodigo()));
+                    populaTabela(tokenVar.getValor(), tipoAtual, retornaCategoria(aRegra, naoTerminal.getCodigo()));   
+                }
                 break;
             case REGRA_130:
-                /*#130 função com o mesmo nome*/
+                /**
+                 *  TUDO OK NA REGRA DE FUÇÕES
+                 * 
+                 * Validação defunção com o mesmo nome*/
+                tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -2);
                 
+                if (tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
+                    /* encontrou uma variável com o mesmo nome */
+                    if (tabelaSemantica.getTipos().contains(tipoAtual)){
+                        /* encontrou uma variável o mesmo nome e tipo */
+                        setStatusSemantico(true);
+                        setErroSemantico("Erro, função : " + tokenVar.getValor() + " do tipo " +
+                                tokenTipo.getValor() + " na linha " + tokenVar.getLinha());
+                    }
+                } else {
+                    tabelaSemantica.addDados(tokenVar.getValor(), tokenTipo.getValor(), retornaCategoria(aRegra, naoTerminal.getCodigo()));
+                    populaTabela(tokenVar.getValor(), tokenTipo.getValor(), retornaCategoria(aRegra, naoTerminal.getCodigo()));   
+                }
                 break;
             case REGRA_140:
-                /*140# Verifica na tabela semântica se existe alguma variável igual,
-                caso não tenho a variável não esta declarada no escopo do programa.*/
+                /**
+                 *  TUDO OK
+                 * 
+                 *  Verificação de chamada de função que não existe
+                 */
+                tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
                 
+                if (!tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
+                    setStatusSemantico(true);
+                    setErroSemantico("Erro, fução : "  + tokenVar.getValor()  + " não encontrada na talbela Semântica");
+                }
                 break;
             case REGRA_150:
-                /*150# Verifica se na procedure há o retorno conforme 
-                a declaração de inteiro ou string.*/
+                /** 
+                 *  TUDO OK
+                 * 
+                 *  Verificação da atribuição correta
+                 */
+                tokenVar = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) -1);
+                tokenTipo = automato.getTokenPosicao(automato.getListaTokens().indexOf(token) +1);
                 
+                /* Recupera  o tipo da minha variavel*/
+                int posicao = tabelaSemantica.getNomesVariaveis().indexOf(tokenVar.getValor());
+                String tipo = tabelaSemantica.getTipos().get(posicao);
+                
+                if (!tipo.equals(retornaTipo(tokenTipo.getCodigo()))){
+                    setStatusSemantico(true);
+                    setErroSemantico("Erro, variável " + tokenVar.getValor() + " não é permitido receber este tipo");
+                }
                 break;  
         }
     }
@@ -116,7 +172,7 @@ public class Semantico {
         erroSemantico = aErro != null ? aErro : "Erro semântico desconhecido";
     }
     
-    public static String getErroSemantico(){
+    public String getErroSemantico(){
         return erroSemantico;
     }
     
@@ -124,8 +180,27 @@ public class Semantico {
         return mStatus;
     }
     
-    public void seStatusSemantico(boolean mStatus) {
-        Semantico.mStatus = mStatus;
+    public void setStatusSemantico(boolean mStatus) {
+        this.mStatus = mStatus;
+    }
+    
+    private String retornaCategoria(int aRegra, int aCodigo){
+        switch (aRegra) {
+            case 100:
+                if (aCodigo == 61 || aCodigo == 64 || aCodigo == 65 || aCodigo == 66){
+                    return CONSTANTE;
+                }
+            case 120:
+                if (aCodigo == 62 || aCodigo == 64 || aCodigo == 67 || aCodigo == 67 || aCodigo == 69){
+                    return VARIAVEL;
+                }
+            case 130: 
+               if (aCodigo == 72){
+                    return FUNCAO;
+                }
+            default:
+                return null;
+        }
     }
     
     private String retornaTipo(int aCodigo){

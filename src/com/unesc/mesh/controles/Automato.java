@@ -16,7 +16,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Utilities;
 
 /**
- * @author Gustavo, Lucas
+ * @author Lucas
  * @see Trabalho desenvolvido na disciplina de compiladores, solicitado pela
  * professora Msc. Christine Vieira.
  *
