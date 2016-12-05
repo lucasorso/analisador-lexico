@@ -239,7 +239,7 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="inicio_programa{&#xa;      void _calculaArea (int _a, int _b) {&#xa;      declaravariaveis int _totalArea;&#xa;             inicio_corpo&#xa;            &#xa;             fim_corpo&#xa;      };&#xa;        &#xa;      constante _CONST = 10;  _CONSTA = 90;&#xa;      declaravariaveis float _diametro,  _total;&#xa;      &#xa;      inicio_corpo&#xa;      &#xa;      fim_corpo &#xa;}"/>
+                <Property name="text" type="java.lang.String" value="inicio_programa{&#xa;&#x9;void _calculaArea (int _a, int _b) {&#xa;  &#x9;declaravariaveis int _totalArea;&#xa;&#x9;&#x9;inicio_corpo&#xa;&#x9;&#x9;&#x9;&#xa;&#x9;&#x9;fim_corpo&#xa;&#x9;};&#xa;        &#xa;  constante _CONST = 10;  _CONSTA = 90;&#xa;  declaravariaveis float _diametro,  _total; int _a, _b;&#xa;      &#xa;  inicio_corpo&#xa;&#x9;&#x9;&#xa;&#x9;&#x9;chamafuncao _calculaArea;&#xa;&#x9;&#x9;&#xa;&#x9;&#x9;for(_a = 2 ; _a &lt; _b ; _a++){&#xa;&#x9;&#x9;&#xa;&#x9;&#x9;}&#xa;&#x9;&#x9;&#xa;  fim_corpo &#xa;}"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

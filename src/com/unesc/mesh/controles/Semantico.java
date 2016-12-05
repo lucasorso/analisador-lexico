@@ -65,7 +65,7 @@ public class Semantico {
                     if (tabelaSemantica.getTipos().contains(retornaTipo(tokenTipo.getCodigo()))){
                         /* encontrou uma constante o mesmo nome e tipo */
                         setStatusSemantico(true);
-                        setErroSemantico("Erro, Variavel : " + tokenVar.getValor() + " do tipo " +
+                        setErroSemantico("Erro, Constante : " + tokenVar.getValor() + " do tipo " +
                                 retornaTipo(tokenTipo.getCodigo()) + " na linha " + tokenVar.getLinha());
                     }
                 } else {
@@ -84,7 +84,7 @@ public class Semantico {
                 
                 if (!tabelaSemantica.getNomesVariaveis().contains(tokenVar.getValor())){
                     setStatusSemantico(true);
-                    setErroSemantico("Erro, Variável : "  + tokenVar.getValor()  + " não encontrada na talbela Semântica");
+                    setErroSemantico("Erro, Variável : "  + tokenVar.getValor()  + " não encontrada na tabela Semântica");
                 }
                 
                 break;

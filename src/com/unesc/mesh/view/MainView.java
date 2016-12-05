@@ -150,7 +150,7 @@ public class MainView extends javax.swing.JFrame {
 
         codigo_jTextArea.setColumns(20);
         codigo_jTextArea.setRows(5);
-        codigo_jTextArea.setText("inicio_programa{\n      void _calculaArea (int _a, int _b) {\n      declaravariaveis int _totalArea;\n             inicio_corpo\n            \n             fim_corpo\n      };\n        \n      constante _CONST = 10;  _CONSTA = 90;\n      declaravariaveis float _diametro,  _total;\n      \n      inicio_corpo\n      \n      fim_corpo \n}");
+        codigo_jTextArea.setText("inicio_programa{\n\tvoid _calculaArea (int _a, int _b) {\n  \tdeclaravariaveis int _totalArea;\n\t\tinicio_corpo\n\t\t\t\n\t\tfim_corpo\n\t};\n        \n  constante _CONST = 10;  _CONSTA = 90;\n  declaravariaveis float _diametro,  _total; int _a, _b;\n      \n  inicio_corpo\n\t\t\n\t\tchamafuncao _calculaArea;\n\t\t\n\t\tfor(_a = 2 ; _a < _b ; _a++){\n\t\t\n\t\t}\n\t\t\n  fim_corpo \n}");
         codigo_jScrollPane.setViewportView(codigo_jTextArea);
 
         javax.swing.GroupLayout codigo_jPanelLayout = new javax.swing.GroupLayout(codigo_jPanel);
