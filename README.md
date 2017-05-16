@@ -10,3 +10,6 @@ Acadêmicos Lucas Orso, Gustavo Zanin.
 
 Nestas primeira etapa do projeto será construído um analisador léxico capaz de indentificar os tokes resgistrados
 no arquivo txt que está junto ao pacotote.
+
+Compilador completo.
+Analisador léxico, sintático e semântico.
